@@ -1,3 +1,9 @@
+Ghania Larasati Nurjayadi Putri
+
+2206083003
+
+Kode Asdos: EIA 
+
 Link Adaptable: 
 
 
@@ -65,7 +71,7 @@ Kemudian, masuk ke bagian _checklist_:
 
 1. ***amount*** sebagai jumlah item dengan tipe ***IntegerField***.
 
-1. ***description sebagai deskripsi item dengan tipe TextField***.
+1. ***description*** sebagai deskripsi item dengan tipe ***TextField***.
 
 * Membuka **models.py** dan memberikan inisiasi dan deskripsi model dalam Djanggo.
 	name = models.CharField(max_length=255)
@@ -127,7 +133,17 @@ __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django be
 
 _Jawab:_
 
+![Added Django Cycle](C:\Users\LENOVO\Downloads\CLIENT (USER).png)
 
+_Notes_:
+
+* urls.py: Ketika client membuat request ke server Django, Django pertama kali mencocokkan URL yang diminta dengan pola URL yang didefinisikan dalam file urls.py. File ini bertindak sebagai pengendali lalu lintas, mengarahkan request ke fungsi view yang sesuai.
+
+* views.py: Fungsi view dalam views.py bertindak sebagai controller yang mengendalikan alur aplikasi. Fungsi view menerima request HTTP, melakukan operasi yang diperlukan, dan mengembalikan respons HTTP. Fungsi view dapat berinteraksi dengan model dan template.
+
+* models.py: Model dalam models.py mendefinisikan struktur data aplikasi. Model adalah representasi dari tabel database dan mereka digunakan untuk berinteraksi dengan database. Fungsi view dapat meminta data dari model, dan model akan mengambil data dari database dan mengembalikannya ke fungsi view.
+
+* Template (HTML): Template adalah file HTML yang digunakan untuk merender tampilan halaman web. Fungsi view merender template dengan konteks, yaitu variabel-variabel yang dapat digunakan dalam template. Template kemudian dikembalikan sebagai respons HTTP ke client.
 
 __3. Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?__
 
