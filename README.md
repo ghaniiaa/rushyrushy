@@ -133,7 +133,7 @@ __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django be
 
 _Jawab:_
 
-![Added Django Cycle](C:\Users\LENOVO\Downloads\CLIENT (USER).jpg)
+![Added Django Cycle](https://drive.google.com/file/d/1gspTKnXb5zC1SEROKmLF0Tan7wgTIOXj/view?usp=sharing)
 
 _Notes_:
 
