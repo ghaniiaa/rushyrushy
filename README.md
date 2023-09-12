@@ -1,6 +1,26 @@
-Ghania Larasati Nurjayadi Putri
-2206083003
+1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
 
-Welcome to RushyRushy!!!
-Place to your lovely thingS <3. Let's see what you have!
+2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+
+
+3. Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
+Jawab:
+	Virtual environment memungkinkan developer untuk membuat lingkungan Python yang terisolasi, di mana setiap proyek dapat memiliki dependensi sendiri-sendiri, terlepas dari dependensi sistem yang ada. Berikut adalah beberapa alasan mengapa kita menggunakan virtual environment:
+		a. Isolasi Dependensi: Setiap proyek Python mungkin memerlukan versi pustaka yang berbeda. Dengan menggunakan virtual environment, developer dapat mengisolasi dependensi ini sehingga perubahan pada satu proyek tidak mempengaruhi proyek lain.
+		b. Menghindari Konflik: Virtual environment membantu menghindari konflik antara library sistem dan library proyek. Misalnya, jika sebuah proyek memerlukan versi library yang berbeda dari yang sudah diinstal di sistem, virtual environment dapat digunakan untuk menginstal versi yang dibutuhkan tanpa mengganggu pustaka sistem.
+		c. Kemudahan dalam Manajemen Dependensi: Virtual environment memudahkan manajemen dependensi proyek. Developer dapat dengan mudah mengetahui pustaka apa saja yang dibutuhkan oleh proyek dan versi apa yang digunakan.
+
+Namun, developer tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment. Tentunya hal ini memiliki kekurangan, yaitu bisa menimbulkan masalah jika ada konflik antara dependensi Django dan library lain yang sudah terinstal di sistem. Oleh karena itu, penggunaan virtual environment sangat disarankan untuk memastikan bahwa aplikasi Django berjalan dalam environment yang terisolasi dan stabil.
+
+4. Jelaskan apakah itu MVC, MVT, MVVM dan perbedaan dari ketiganya.
+Jawab: 
+	MVC, MVT, dan MVVM adalah tiga pola arsitektur yang populer dalam pengembangan aplikasi. Pola arsitektur adalah cara untuk mengatur komponen-komponen aplikasi agar lebih mudah dipahami, diuji, dan dimodifikasi. Pola arsitektur ini memiliki tujuan yang sama, yaitu memisahkan logika bisnis (model) dari antarmuka pengguna (view), tetapi memiliki cara yang berbeda untuk melakukannya. Berikut adalah penjelasan singkat dan perbedaan dari ketiga pola arsitektur ini:
+		a. MVC (Model-View-Controller): MVC adalah pola arsitektur yang paling tua dan paling banyak digunakan. MVC membagi aplikasi menjadi tiga komponen utama, yaitu model, view, dan controller. Model adalah komponen yang bertanggung jawab untuk menyimpan dan memproses data serta menerapkan aturan bisnis. View adalah komponen yang bertanggung jawab untuk menampilkan data dari model ke pengguna. Controller adalah komponen yang bertindak sebagai perantara antara model dan view. Controller menerima masukan dari pengguna melalui view, memprosesnya, dan memperbarui model. Kemudian, model memberitahu controller bahwa data telah berubah, dan controller mengirimkan data baru ke view untuk ditampilkan.
+
+		b. MVT (Model-View-Template): MVT adalah pola arsitektur yang mirip dengan MVC, tetapi menggunakan istilah template sebagai pengganti controller. Template adalah komponen yang berisi kode HTML yang digunakan untuk menghasilkan view. Template dapat menggunakan variabel dan tag khusus untuk menampilkan data dari model. MVT biasanya digunakan dalam framework web seperti Django. Dalam MVT, alur komunikasi antara komponen adalah sebagai berikut: Pengguna mengirimkan permintaan ke server web. Server web meneruskan permintaan ke URL mapper, yang menentukan view mana yang harus dipanggil. View mengambil data dari model dan memberikannya ke template. Template menghasilkan HTML yang dikirim kembali ke view. View mengembalikan HTML sebagai respons ke server web. Server web mengirimkan respons ke pengguna.
+
+		c. MVVM (Model-View-ViewModel): MVVM adalah pola arsitektur yang lebih baru dan lebih kompleks daripada MVC dan MVT. MVVM membagi aplikasi menjadi tiga komponen utama, yaitu model, view, dan view model. Model adalah komponen yang sama dengan pada MVC dan MVT, yaitu menyimpan dan memproses data serta menerapkan aturan bisnis. View adalah komponen yang sama dengan pada MVC dan MVT, yaitu menampilkan data dari model ke pengguna. View model adalah komponen yang berfungsi sebagai abstraksi dari view. View model menyediakan properti dan perintah yang dapat diikat oleh view melalui mekanisme yang disebut data binding . Data binding adalah proses otomatis yang menyinkronkan data antara view model dan view tanpa perlu kode tambahan. Dalam MVVM, alur komunikasi antara komponen adalah sebagai berikut: Pengguna melakukan interaksi dengan view. View mengirimkan perintah atau perubahan data ke view model melalui data binding. View model memperbarui model sesuai dengan perintah atau perubahan data tersebut. Model memberitahu view model bahwa data telah berubah. View model mengubah properti atau perintahnya sesuai dengan data baru tersebut. View menerima properti atau perintah baru dari view model melalui data binding dan menampilkan data terbaru ke pengguna.
+
+	Perbedaan utama antara ketiga pola arsitektur ini adalah cara mereka mengelola komunikasi antara model dan view. MVC menggunakan controller sebagai perantara, MVT menggunakan template sebagai generator HTML, dan MVVM menggunakan view model sebagai abstraksi dari view. Keuntungan dari MVC adalah mudah dipelajari dan diimplementasikan, keuntungan dari MVT adalah memisahkan logika presentasi dari logika bisnis, dan keuntungan dari MVVM adalah meningkatkan modularitas dan tesabilitas.
+
