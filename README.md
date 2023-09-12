@@ -133,7 +133,7 @@ __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django be
 
 _Jawab:_
 
-![Added Django Cycle](https://imgbox.com/XqJKV2rm)
+![Added Django Cycle](https://imgbox.com/geJ1G0VK)
 
 _Notes_:
 
