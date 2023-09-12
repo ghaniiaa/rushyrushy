@@ -1,8 +1,13 @@
+Link Adaptable: 
+
+
+
+
 __1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).__
 
 _Jawab:_
 
-Setep awal, membuat direktori utama bernama ***RushyRushy***. 
+Step awal, membuat direktori utama bernama ***RushyRushy***. 
 
 Tentunya sebelum mengimplementasikan step pada _checklist_ , pertama-tama melakukan konfigurasi github terlebih dahulu. 
 
@@ -34,40 +39,88 @@ Kemudian, masuk ke bagian _checklist_:
 
 * Membuat proyek Django baru dengan menggunakan perintah ***django-admin startproject projectname .*** di terminal cmd, dan mengganti ***projectname*** dengan nama ***rushyrushy***.
 
-* 
+* Melakukan konfigurasi proyek dengan menambahkan [* x *] pada **ALLOWED_HOSTS** di _settings.py_ . Hal ini memungkinkan aplikasi dapat diaskses secara luas. 
+
+* Lalu menjalankan server Djanggo, dan melakukan pengecekan apakah web server sudah berjalan. Lalu mengdeactive server.
+
+* Kemudian, membuat file .gitignore untuk menentukan file atau direktori mana saja yang bisa diabaikan oleh git.
+
+* Last but not least, mendevelop aplikasi di Adatable.io .
 
 [x] Membuat aplikasi dengan nama ***main*** pada proyek tersebut.
 
+* Setelah terdevelop based untuk aplikasi yang sedang dibangun, langkah selanjutnya kembali menyalakan Virtual Environment.
 
+* Kemudian membuat aplikasi main dalam proyek *RushyRushy*, dengan menjalankan **python manage.py startapp main**.
 
 [x] Melakukan routing pada proyek agar dapat menjalankan aplikasi ***main***.
 
+* Menambahkan 'main' pada **INTEALLED_APPS** di settings.py.
 
+* Membuat file baru dengan judul _main.html_ berisikan nilia data yang sesuai dengan yang diinginkan.
 
 [x] Membuat model pada aplikasi ***main*** dengan nama ***Item*** dan memiliki atribut wajib sebagai berikut.
 
-* ***name*** sebagai nama item dengan tipe ***CharField***.
+1. ***name*** sebagai nama item dengan tipe ***CharField***.
 
-- ***amount*** sebagai jumlah item dengan tipe ***IntegerField***.
+1. ***amount*** sebagai jumlah item dengan tipe ***IntegerField***.
 
-+ ***description sebagai deskripsi item dengan tipe TextField***.
+1. ***description sebagai deskripsi item dengan tipe TextField***.
 
+* Membuka **models.py** dan memberikan inisiasi dan deskripsi model dalam Djanggo.
+	name = models.CharField(max_length=255)
+	
+	date_added = models.DateField(auto_now_add=True)
 
+	amount = models.IntegerField()
+
+	description = models.TextField()
+
+	category = models.TextField()
+
+	price = models.IntegerField()
+
+* Menjalankan migrasi model untuk melacak perubaham pada data base. 
 
 [x] Membuat sebuah fungsi pada ***views.py*** untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu.
 
+* Pada step ini, akan menghubungkan view dan template. 
 
+* Melakuakn adjust pada file ***views.py***. Pada file terebut melakukan _render_ untuk merender tampilan HTML dan juga pada step ini akan dilakukan pengimporan fungsi dari modul **django.shortcuts** . 
+
+* Kemudian menambahkan fungsi **show_main** yang berisikan data yang akan dikirimkan ke interface. Pada context ini, sesuai dengan permintaan pada _checklist_ point yaitu, **Nama Company**, **Nama**, dan **Kelas**.
+
+* Pada fungsi, terdapat **return render** untuk merender interface **main.html**. 
+
+* Selanjutnya, memodifikasi template **main.html**
+
+	<h1>RushyRushy</h1>
+
+	<h5>Name: </h5>
+
+	<p>{{name}}</p>
+
+	<h5>Class: </h5>
+
+	<p>{{class}}</p> 
 
 [x] Membuat sebuah routing pada ***urls.py*** aplikasi ***main*** untuk memetakan fungsi yang telah dibuat pada ***views.py***.
 
+* Sebelum melakukan routing, tentu perlua dibuatnya **urls.py** pada direktori main. File terebut digunakan untuk mengatur rute URL spesifik pad aplikasi. --> URLS APLIKASI
 
+* Kemudian, membuka **urls.py** pada direktori proyek dan menambahkan fungsi include serta membuat rute tambahan yang mengarah pada tampilan main. Hal ini dilakukan untuk mengatur rute pada tingkat proyek dan mengimpor rute-rute aplikasi. --> URLS PROYEK
+
+* Selanjutnya menjalankan perintah **python manage.py runserver** dan melakukan pengecekan dengan **http://localhost:8000/main/** apakah web sudah berhasil dibuat.
+
+* Terakhir, membuat unit testing. 
 
 [x] Melakukan deployment ke Adaptable terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
 
-
+* Melakukan pengecekan kembali pada adaptable yang telah didevelop untuk aplikasi RushyRushy.
 
 [x] Membuat sebuah ***README.md*** yang berisi tautan menuju aplikasi Adaptable yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut.
 
+* Meletakan link akses untuk membuka aplikasi dan menjawab pertanayan-pertanyaan yang terlampir pada _checklist_ . 
 
 
 __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.__
