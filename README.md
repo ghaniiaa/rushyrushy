@@ -2,11 +2,47 @@ __1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara s
 
 _Jawab:_
 
+Setep awal, membuat direktori utama bernama ***RushyRushy***. 
+
+Tentunya sebelum mengimplementasikan step pada _checklist_ , pertama-tama melakukan konfigurasi github terlebih dahulu. 
+
+* Pada step ini, melakukan git init dan git config. Git init dilakukan untuk menginisialisasi direktori baru sebagai respositori git. Git config untuk mengatur konfigurasi git. 
+
+Kemudian, membuat repository baru dalam github. 
+
+* Pada step ini, saya membuat repository bernama ***RushyRushy***
+
+Selanjutnya, membuat _README.md_ . 
+
+* Notes: setiap melakukan perubahan selalu diikuti dengan *git add* , *git commit* , dan *git push* .
+
+Step selanjutnya adalah membuat branch baru, disini membuat branch utama yaitu *branch Main* . Dan menghubungkan dengan repositori di github. 
+
+* Menggunakan *git remote* .
+
+Melakukan cloning repository, tujuanya adalah untuk menduplikasi konten ke dalam proyek lokal (kekomputer lokal atau repository hasil cloning). Lalu, melakukan pull pada repository untuk mengambil perubahan dan menggabungkan dengan repositoi lokal.
+
+Selanjutnya membuat branching pada repository, hal ini mempermudah dalam mendevelop aplikasi pada kemudia hari. Karena dengan adanya branching memungkinkan untuk melakukan perubahan pada code tanpa merubah di branch utama.
+
+Kemudian, masuk ke bagian _checklist_:
+
 [x] Membuat sebuah proyek Django baru.
+
+* Menjalankan virual environment. Hal ini agar dapat mengisolasi dependencies dan package dari aplikasi yang sedang di develop.
+
+* Kemudian, pada direktori utama membuat file requirements.txt. Dan tidak lupa untuk install virtual environment.
+
+* Membuat proyek Django baru dengan menggunakan perintah ***django-admin startproject projectname .*** di terminal cmd, dan mengganti ***projectname*** dengan nama ***rushyrushy***.
+
+* 
 
 [x] Membuat aplikasi dengan nama ***main*** pada proyek tersebut.
 
+
+
 [x] Melakukan routing pada proyek agar dapat menjalankan aplikasi ***main***.
+
+
 
 [x] Membuat model pada aplikasi ***main*** dengan nama ***Item*** dan memiliki atribut wajib sebagai berikut.
 
@@ -16,13 +52,23 @@ _Jawab:_
 
 + ***description sebagai deskripsi item dengan tipe TextField***.
 
+
+
 [x] Membuat sebuah fungsi pada ***views.py*** untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu.
+
+
 
 [x] Membuat sebuah routing pada ***urls.py*** aplikasi ***main*** untuk memetakan fungsi yang telah dibuat pada ***views.py***.
 
+
+
 [x] Melakukan deployment ke Adaptable terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
 
+
+
 [x] Membuat sebuah ***README.md*** yang berisi tautan menuju aplikasi Adaptable yang sudah di-deploy, serta jawaban dari beberapa pertanyaan berikut.
+
+
 
 __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.__
 
