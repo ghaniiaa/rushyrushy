@@ -1,3 +1,5 @@
+# Tugas 2: Implementasi Model-View-Template (MVT) pada Django
+
 Ghania Larasati Nurjayadi Putri
 
 2206083003
@@ -6,8 +8,9 @@ Kode Asdos: EIA
 
 Link Adaptable: 
 
+Maaf belum sempat tercopy namun sudah di disabled.
 
-
+## Jawaban Pertanyaan
 
 __1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).__
 
@@ -25,15 +28,15 @@ Kemudian, membuat repository baru dalam github.
 
 Selanjutnya, membuat _README.md_ . 
 
-* Notes: setiap melakukan perubahan selalu diikuti dengan *git add* , *git commit* , dan *git push* .
+* Notes: setiap melakukan perubahan selalu diikuti dengan 'git add' , 'git commit' , dan 'git push' .
 
-Step selanjutnya adalah membuat branch baru, disini membuat branch utama yaitu *branch Main* . Dan menghubungkan dengan repositori di github. 
+Step selanjutnya adalah membuat branch baru, disini membuat branch utama yaitu 'branch Main' . Dan menghubungkan dengan repositori di github. 
 
-* Menggunakan *git remote* .
+* Menggunakan 'git remote' .
 
 Melakukan cloning repository, tujuanya adalah untuk menduplikasi konten ke dalam proyek lokal (kekomputer lokal atau repository hasil cloning). Lalu, melakukan pull pada repository untuk mengambil perubahan dan menggabungkan dengan repositoi lokal.
 
-Selanjutnya membuat branching pada repository, hal ini mempermudah dalam mendevelop aplikasi pada kemudia hari. Karena dengan adanya branching memungkinkan untuk melakukan perubahan pada code tanpa merubah di branch utama.
+Selanjutnya membuat branching pada repository, hal ini mempermudah dalam mendevelop aplikasi pada kemudian hari. Karena dengan adanya branching memungkinkan untuk melakukan perubahan pada code tanpa merubah di branch utama.
 
 Kemudian, masuk ke bagian _checklist_:
 
@@ -41,39 +44,40 @@ Kemudian, masuk ke bagian _checklist_:
 
 * Menjalankan virual environment. Hal ini agar dapat mengisolasi dependencies dan package dari aplikasi yang sedang di develop.
 
-* Kemudian, pada direktori utama membuat file requirements.txt. Dan tidak lupa untuk install virtual environment.
+* Kemudian, pada direktori utama membuat file 'requirements.txt'. Dan tidak lupa untuk install virtual environment.
 
-* Membuat proyek Django baru dengan menggunakan perintah ***django-admin startproject projectname .*** di terminal cmd, dan mengganti ***projectname*** dengan nama ***rushyrushy***.
+* Membuat proyek Django baru dengan menggunakan perintah 'django-admin startproject projectname'. di terminal cmd, dan mengganti ***projectname*** dengan nama ***rushyrushy***.
 
-* Melakukan konfigurasi proyek dengan menambahkan [* x *] pada **ALLOWED_HOSTS** di _settings.py_ . Hal ini memungkinkan aplikasi dapat diaskses secara luas. 
+* Melakukan konfigurasi proyek dengan menambahkan '[* x *]' pada 'ALLOWED_HOSTS' di 'settings.py' . Hal ini memungkinkan aplikasi dapat diaskses secara luas. 
 
 * Lalu menjalankan server Djanggo, dan melakukan pengecekan apakah web server sudah berjalan. Lalu mengdeactive server.
 
-* Kemudian, membuat file .gitignore untuk menentukan file atau direktori mana saja yang bisa diabaikan oleh git.
+* Kemudian, membuat file '.gitignore' untuk menentukan file atau direktori mana saja yang bisa diabaikan oleh git.
 
-* Last but not least, mendevelop aplikasi di Adatable.io .
+* Last but not least, mendevelop aplikasi di 'Adatable.io'.
 
 [x] Membuat aplikasi dengan nama ***main*** pada proyek tersebut.
 
 * Setelah terdevelop based untuk aplikasi yang sedang dibangun, langkah selanjutnya kembali menyalakan Virtual Environment.
 
-* Kemudian membuat aplikasi main dalam proyek *RushyRushy*, dengan menjalankan **python manage.py startapp main**.
+* Kemudian membuat aplikasi main dalam proyek *RushyRushy*, dengan menjalankan 'python manage.py startapp main'.
 
 [x] Melakukan routing pada proyek agar dapat menjalankan aplikasi ***main***.
 
-* Menambahkan 'main' pada **INTEALLED_APPS** di settings.py.
+* Menambahkan 'main' pada 'INTEALLED_APPS' di settings.py.
 
-* Membuat file baru dengan judul _main.html_ berisikan nilia data yang sesuai dengan yang diinginkan.
+* Membuat file baru dengan judul 'main.html' berisikan nilia data yang sesuai dengan yang diinginkan.
 
 [x] Membuat model pada aplikasi ***main*** dengan nama ***Item*** dan memiliki atribut wajib sebagai berikut.
 
-1. ***name*** sebagai nama item dengan tipe ***CharField***.
+1. 'name' sebagai nama item dengan tipe 'CharField'.
 
-1. ***amount*** sebagai jumlah item dengan tipe ***IntegerField***.
+1. 'amount' sebagai jumlah item dengan tipe 'IntegerField'.
 
-1. ***description*** sebagai deskripsi item dengan tipe ***TextField***.
+1. 'description' sebagai deskripsi item dengan tipe 'TextField'.
 
-* Membuka **models.py** dan memberikan inisiasi dan deskripsi model dalam Djanggo.
+* Membuka 'models.py' dan memberikan inisiasi dan deskripsi model dalam Djanggo.
+'''
 	name = models.CharField(max_length=255)
 	
 	date_added = models.DateField(auto_now_add=True)
@@ -85,20 +89,22 @@ Kemudian, masuk ke bagian _checklist_:
 	category = models.TextField()
 
 	price = models.IntegerField()
+'''
 
 * Menjalankan migrasi model untuk melacak perubaham pada data base. 
 
-[x] Membuat sebuah fungsi pada ***views.py*** untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu.
+[x] Membuat sebuah fungsi pada 'views.py' untuk dikembalikan ke dalam sebuah template HTML yang menampilkan nama aplikasi serta nama dan kelas kamu.
 
 * Pada step ini, akan menghubungkan view dan template. 
 
-* Melakuakn adjust pada file ***views.py***. Pada file terebut melakukan _render_ untuk merender tampilan HTML dan juga pada step ini akan dilakukan pengimporan fungsi dari modul **django.shortcuts** . 
+* Melakuakn adjust pada file 'views.py'. Pada file terebut melakukan _render_ untuk merender tampilan HTML dan juga pada step ini akan dilakukan pengimporan fungsi dari modul 'django.shortcuts' . 
 
-* Kemudian menambahkan fungsi **show_main** yang berisikan data yang akan dikirimkan ke interface. Pada context ini, sesuai dengan permintaan pada _checklist_ point yaitu, **Nama Company**, **Nama**, dan **Kelas**.
+* Kemudian menambahkan fungsi 'show_main' yang berisikan data yang akan dikirimkan ke interface. Pada context ini, sesuai dengan permintaan pada _checklist_ point yaitu, **Nama Company**, **Nama**, dan **Kelas**.
 
-* Pada fungsi, terdapat **return render** untuk merender interface **main.html**. 
+* Pada fungsi, terdapat 'return render' untuk merender interface 'main.html'. 
 
-* Selanjutnya, memodifikasi template **main.html**
+* Selanjutnya, memodifikasi template 'main.html'
+'''
 
 	<h1>RushyRushy</h1>
 
@@ -109,14 +115,15 @@ Kemudian, masuk ke bagian _checklist_:
 	<h5>Class: </h5>
 
 	<p>{{class}}</p> 
+'''
 
 [x] Membuat sebuah routing pada ***urls.py*** aplikasi ***main*** untuk memetakan fungsi yang telah dibuat pada ***views.py***.
 
-* Sebelum melakukan routing, tentu perlua dibuatnya **urls.py** pada direktori main. File terebut digunakan untuk mengatur rute URL spesifik pad aplikasi. --> URLS APLIKASI
+* Sebelum melakukan routing, tentu perlua dibuatnya 'urls.py' pada direktori main. File terebut digunakan untuk mengatur rute URL spesifik pad aplikasi. --> URLS APLIKASI
 
-* Kemudian, membuka **urls.py** pada direktori proyek dan menambahkan fungsi include serta membuat rute tambahan yang mengarah pada tampilan main. Hal ini dilakukan untuk mengatur rute pada tingkat proyek dan mengimpor rute-rute aplikasi. --> URLS PROYEK
+* Kemudian, membuka 'urls.py' pada direktori proyek dan menambahkan fungsi include serta membuat rute tambahan yang mengarah pada tampilan main. Hal ini dilakukan untuk mengatur rute pada tingkat proyek dan mengimpor rute-rute aplikasi. --> URLS PROYEK
 
-* Selanjutnya menjalankan perintah **python manage.py runserver** dan melakukan pengecekan dengan **http://localhost:8000/main/** apakah web sudah berhasil dibuat.
+* Selanjutnya menjalankan perintah 'python manage.py runserver' dan melakukan pengecekan dengan **http://localhost:8000/main/** apakah web sudah berhasil dibuat.
 
 * Terakhir, membuat unit testing. 
 
@@ -133,7 +140,7 @@ __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django be
 
 _Jawab:_
 
-![Added Django Cycle](https://imgbox.com/geJ1G0VK)
+![CLIENT (USER)](https://github.com/ghaniiaa/rushyrushy/assets/116947086/bc39eb84-a9ae-475b-9ec1-29abbd1d2dee)
 
 _Notes_:
 
