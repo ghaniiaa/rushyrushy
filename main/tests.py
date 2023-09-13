@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
+from .models import Product
 
-class mainTest(TestCase):
+class MainTest(TestCase):
     def test_main_url_is_exist(self):
         response = Client().get('/main/')
         self.assertEqual(response.status_code, 200)
@@ -22,3 +23,25 @@ class mainTest(TestCase):
         self.assertEqual(response.context['name'], 'Ghania Larasati Nurjayadi Putri')
         self.assertEqual(response.context['class'], 'PBP D')
 
+class ProductTestCase(TestCase):
+    def setUp(self):
+        self.product = Product.objects.create(
+            name='Test Product',
+            amount=10,
+            description='This is a test product',
+            category='Test Category',
+            price=100
+        )
+
+    def test_product_creation(self):
+        product = Product.objects.get(name='Test Product')
+        self.assertEqual(product.amount, 10)
+        self.assertEqual(product.description, 'This is a test product')
+        self.assertEqual(product.category, 'Test Category')
+        self.assertEqual(product.price, 100)
+
+    def test_product_string_representation(self):
+        self.assertEqual(str(self.product), 'Test Product')
+
+    def test_product_date_added_auto_now_add(self):
+        self.assertIsNotNone(self.product.date_added)
