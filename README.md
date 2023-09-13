@@ -32,17 +32,17 @@ Selanjutnya, membuat _README.md_ .
 
 Step selanjutnya adalah membuat branch baru, disini membuat branch utama yaitu `branch Main` . Dan menghubungkan dengan repositori di github. 
 
-* Menggunakan `git remote` .
+* Menggunakan `git remote add origin <URL_REPO>` .
 
-Melakukan cloning repository, tujuanya adalah untuk menduplikasi konten ke dalam proyek lokal (kekomputer lokal atau repository hasil cloning). Lalu, melakukan pull pada repository untuk mengambil perubahan dan menggabungkan dengan repositoi lokal.
+Melakukan cloning repository `git clone <URL_CLONE>`, tujuannya adalah untuk menduplikasi konten ke dalam proyek lokal (kekomputer lokal atau repository hasil cloning). Lalu, melakukan pull pada repository untuk mengambil perubahan dan menggabungkan dengan repositoi lokal.
 
-Selanjutnya membuat branching pada repository, hal ini mempermudah dalam mendevelop aplikasi pada kemudian hari. Karena dengan adanya branching memungkinkan untuk melakukan perubahan pada code tanpa merubah di branch utama.
+Selanjutnya membuat branching pada repository, hal ini mempermudah dalam mendevelop aplikasi pada kemudian hari. Karena dengan adanya branching memungkinkan untuk melakukan perubahan pada code tanpa merubah di branch utama. Kemudian, melakukan **Compare & pull request** dan **Merge pull request** pada github.
 
 Kemudian, masuk ke bagian _checklist_:
 
 [x] Membuat sebuah proyek Django baru.
 
-* Menjalankan virual environment. Hal ini agar dapat mengisolasi dependencies dan package dari aplikasi yang sedang di develop.
+* Menjalankan virual environment (`python -m venv env` -> `env\Scripts\activate.bat'). Hal ini agar dapat mengisolasi dependencies dan package dari aplikasi yang sedang di develop.
 
 * Kemudian, pada direktori utama membuat file `requirements.txt`. Dan tidak lupa untuk install virtual environment.
 
@@ -64,7 +64,7 @@ Kemudian, masuk ke bagian _checklist_:
 
 [x] Melakukan routing pada proyek agar dapat menjalankan aplikasi ***main***.
 
-* Menambahkan `main` pada `INTEALLED_APPS` di `settings.py`.
+* Menambahkan `main` pada `INTALLED_APPS` di `settings.py`.
 
 * Membuat file baru dengan judul `main.html` berisikan nilia data yang sesuai dengan yang diinginkan.
 
@@ -81,15 +81,10 @@ Kemudian, masuk ke bagian _checklist_:
 ```
 
 name = models.CharField(max_length=255)
-
 date_added = models.DateField(auto_now_add=True)
-
 amount = models.IntegerField()
-
 description = models.TextField()
-
 category = models.TextField()
-
 price = models.IntegerField()
 
 ```
@@ -111,13 +106,9 @@ price = models.IntegerField()
 ```
 
 	<h1>RushyRushy</h1>
-
 	<h5>Name: </h5>
-
 	<p>{{name}}</p>
-
 	<h5>Class: </h5>
-
 	<p>{{class}}</p> 
 
 ```
@@ -131,6 +122,59 @@ price = models.IntegerField()
 * Selanjutnya menjalankan perintah `python manage.py runserver` dan melakukan pengecekan dengan **http://localhost:8000/main/** apakah web sudah berhasil dibuat.
 
 * Terakhir, membuat unit testing. 
+
+```
+
+from django.test import TestCase, Client
+from .models import Product
+
+class MainTest(TestCase):
+    def test_main_url_is_exist(self):
+        response = Client().get('/main/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_main_using_main_template(self):
+        response = Client().get('/main/')
+        self.assertTemplateUsed(response, 'main.html')
+
+    def test_main_contains_name(self):
+        response = Client().get('/main/')
+        self.assertContains(response, 'Ghania Larasati Nurjayadi Putri')
+
+    def test_main_contains_class(self):
+        response = Client().get('/main/')
+        self.assertContains(response, 'PBP D')
+
+    def test_main_template_context(self):
+        response = Client().get('/main/')
+        self.assertEqual(response.context['name'], 'Ghania Larasati Nurjayadi Putri')
+        self.assertEqual(response.context['class'], 'PBP D')
+
+class ProductTestCase(TestCase):
+    def setUp(self):
+        self.product = Product.objects.create(
+            name='Test Product',
+            amount=10,
+            description='This is a test product',
+            category='Test Category',
+            price=100
+        )
+
+    def test_product_creation(self):
+        product = Product.objects.get(name='Test Product')
+        self.assertEqual(product.amount, 10)
+        self.assertEqual(product.description, 'This is a test product')
+        self.assertEqual(product.category, 'Test Category')
+        self.assertEqual(product.price, 100)
+
+    def test_product_string_representation(self):
+        self.assertEqual(str(self.product), 'Test Product')
+
+    def test_product_date_added_auto_now_add(self):
+        self.assertIsNotNone(self.product.date_added)
+
+
+```
 
 [x] Melakukan deployment ke Adaptable terhadap aplikasi yang sudah dibuat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
 
