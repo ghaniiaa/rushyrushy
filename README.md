@@ -141,6 +141,10 @@ __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django be
 _Jawab:_
 
 ![CLIENT (USER)](https://github.com/ghaniiaa/rushyrushy/assets/116947086/bc39eb84-a9ae-475b-9ec1-29abbd1d2dee)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4d88e4ade946f5f2f9d45e268dcfcb12a222674f
 
 _Notes_:
 
