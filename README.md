@@ -77,18 +77,21 @@ Kemudian, masuk ke bagian _checklist_:
 1. 'description' sebagai deskripsi item dengan tipe 'TextField'.
 
 * Membuka 'models.py' dan memberikan inisiasi dan deskripsi model dalam Djanggo.
+
 '''
-	name = models.CharField(max_length=255)
-	
-	date_added = models.DateField(auto_now_add=True)
 
-	amount = models.IntegerField()
+name = models.CharField(max_length=255)
 
-	description = models.TextField()
+date_added = models.DateField(auto_now_add=True)
 
-	category = models.TextField()
+amount = models.IntegerField()
 
-	price = models.IntegerField()
+description = models.TextField()
+
+category = models.TextField()
+
+price = models.IntegerField()
+
 '''
 
 * Menjalankan migrasi model untuk melacak perubaham pada data base. 
@@ -104,6 +107,7 @@ Kemudian, masuk ke bagian _checklist_:
 * Pada fungsi, terdapat 'return render' untuk merender interface 'main.html'. 
 
 * Selanjutnya, memodifikasi template 'main.html'
+
 '''
 
 	<h1>RushyRushy</h1>
@@ -115,6 +119,7 @@ Kemudian, masuk ke bagian _checklist_:
 	<h5>Class: </h5>
 
 	<p>{{class}}</p> 
+
 '''
 
 [x] Membuat sebuah routing pada ***urls.py*** aplikasi ***main*** untuk memetakan fungsi yang telah dibuat pada ***views.py***.
