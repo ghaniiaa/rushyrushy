@@ -42,7 +42,9 @@ Kemudian, masuk ke bagian _checklist_:
 
 [x] Membuat sebuah proyek Django baru.
 
-* Menjalankan virual environment (`python -m venv env` -> `env\Scripts\activate.bat'). Hal ini agar dapat mengisolasi dependencies dan package dari aplikasi yang sedang di develop.
+* Menjalankan virual environment (`python -m venv env` -> `env\Scripts\activate.bat`). Hal ini agar dapat mengisolasi dependencies dan package dari aplikasi yang sedang di develop.
+
+_notes: cara mematikan virtual environment dengan `deactivate`_
 
 * Kemudian, pada direktori utama membuat file `requirements.txt`. Dan tidak lupa untuk install virtual environment.
 
