@@ -133,7 +133,8 @@ __2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django be
 
 _Jawab:_
 
-![Added Django Cycle](https://imgbox.com/geJ1G0VK)
+![CLIENT (USER)](https://github.com/ghaniiaa/rushyrushy/assets/116947086/bc39eb84-a9ae-475b-9ec1-29abbd1d2dee)
+
 
 _Notes_:
 
