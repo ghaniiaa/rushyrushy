@@ -548,7 +548,7 @@ _Checklist :_
         path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
         ```
 
-+ Memjawab pada `READ.ME`
++ Menjawab pada `READ.ME`
 
     Menjawab README.md sesuai dengan jawaban diatas.
 
@@ -576,18 +576,20 @@ _Checklist :_
 
 * *HTML*
 
-
+![image](https://github.com/ghaniiaa/rushyrushy/assets/116947086/8050542c-292d-4665-98a6-7cc2fedc1e62)
 
 + *XML*
 
-
+![image](https://github.com/ghaniiaa/rushyrushy/assets/116947086/b9e397ba-9c2d-4f3d-a895-0ee3666a04eb)
 
 - *JSON*
 
-
+![image](https://github.com/ghaniiaa/rushyrushy/assets/116947086/56861f59-0111-4dda-b239-8648efeb29db)
 
 + *XML by ID*
 
-
+![image](https://github.com/ghaniiaa/rushyrushy/assets/116947086/188a9387-b91e-424f-a81d-dde1b1ce370a)
 
 - *JSON by ID*
+
+![image](https://github.com/ghaniiaa/rushyrushy/assets/116947086/1895462a-5dea-41f8-97ad-bc7671b6ec1e)
