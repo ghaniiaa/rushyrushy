@@ -1,10 +1,10 @@
-# Tugas 2: Implementasi Model-View-Template (MVT) pada Django
-
 Ghania Larasati Nurjayadi Putri
 
 2206083003
 
 Kode Asdos: EIA 
+
+# Tugas 2: Implementasi Model-View-Template (MVT) pada Django
 
 Link Adaptable: 
 
@@ -231,3 +231,106 @@ MVC, MVT, dan MVVM adalah tiga pola arsitektur yang populer dalam pengembangan a
 
 Perbedaan utama antara ketiga pola arsitektur ini adalah cara mereka mengelola komunikasi antara model dan view. MVC menggunakan controller sebagai perantara, MVT menggunakan template sebagai generator HTML, dan MVVM menggunakan view model sebagai abstraksi dari view. Keuntungan dari MVC adalah mudah dipelajari dan diimplementasikan, keuntungan dari MVT adalah memisahkan logika presentasi dari logika bisnis, dan keuntungan dari MVVM adalah meningkatkan modularitas dan tesabilitas.
 
+
+# Tugas 3: Implementasi Form dan Data Delivery pada Django
+
+## Jawaban Pertanyaan
+
+__1. Apa perbedaan antara form POST dan form GET dalam Django?__
+
+_Jawab:_ 
+
+* **Form POST** : Form Post digunakan untuk mengirimkan data ke server tanpa menampilkan data tersebut   di URL. Data yang dikirimkan sebagai merupakan bagian dari permintaan HTTP dan tidak terlihat oleh pengguna. Form Post adalah metode yang cocok digunakan dalam mengirimkan data sensitif (contoh: kata sandi atau informasi pribadi).
+
+* **Form GET** : Form GET digunakan untuk  mengirim data melalui URL sebagai query string. Data dapat dilihat oleh pengguna di URL, dan permintaan GET idealnya digunakan untuk permintaan pencarian atau permintaan yang tidak mengubah status server. Metode ini memiliki keterbatasan panjang URL yang dapat dikirim.
+
+**Perbedaan POST dan GET**
+
+1. Form POST tidak menampilkan nilai variabel di URL, sedangkan form GET menampilkan nilai variabel di URL sehingga user dapat dengan mudah memasukkan nilai variabel baru.
+
+1. Form POST lebih aman daripada form GET.
+
+1. Form POST tidak dibatasi panjang string, sedangkan form GET dibatasi panjang string sampai 2047 karakter.
+
+__2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?__
+
+_Jawab:_
+
++ **XML** *(eXtensible Markup Language)* : format teks yang digunakan untuk merepresentasikan data dalam struktur hirarkis. Ia sangat serbaguna dan dapat digunakan untuk merepresentasikan berbagai jenis data. Namun, XML memiliki sintaks yang lebih kompleks dan seringkali menghasilkan dokumen yang lebih besar dibandingkan JSON.
+
++ **JSON** *(JavaScript Object Notation)* : format teks yang digunakan untuk pertukaran data ringan. Ia biasanya lebih mudah dibaca oleh manusia dibandingkan XML karena memiliki sintaks yang sederhana. JSON umumnya digunakan dalam aplikasi web modern dan layanan web RESTful karena ukuran data yang lebih kecil dan parsing yang lebih cepat.
+
++ **HTML** *(HyperText Markup Language)* : bahasa markup yang digunakan untuk membuat halaman web. Ia berfokus pada tampilan dan struktur halaman web dan tidak dirancang untuk pertukaran data. Namun, HTML juga bisa digunakan untuk mengirim data melalui form dalam elemen-elemen seperti <input>.
+
+__3. Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?__
+ 
+_Jawab:_
+
+1. JSON mendukung semua browser dan sebagian besar bahasa pemrograman modern, sehingga data dalam format JSON dapat dengan mudah diolah dan dimanipulasi di berbagai platform dan lingkungan.
+
+1. JSON memiliki struktur data yang intuitif dan konsisten, sehingga data dapat direpresentasikan dengan fleksibel dan kompleks, seperti objek dalam objek atau array dari objek-objek.
+
+1. JSON memiliki sintaks yang mudah dibaca oleh manusia, sehingga memudahkan pengembang dalam memahami dan menganalisis data selama proses pengembangan dan debugging.
+
+1. JSON memiliki format yang ringan dan terstruktur, sehingga data dapat dikirim dengan cepat melalui jaringan dan diurai dengan mudah oleh klien.
+
+__4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).__
+
+_Jawab:_
+
+Step awal sebelum mengerjakan `checklist`:
+
+* Mengatur routing dari `main/` ke `/`
+Pada step ini mengubah isi `urls.py`, dimana mengubah bagian `urlpatterns` dengan mengubah routing `main/` ke `/`.
+
+* Kemudiang melakukan implementasi Skeleton
+    _ Pada step ini, membuat folder baru yaitu folder `template` dan membuat berkas `base.html`.
+    _ Lalu melakukan penyesuaian `settings.py` pada subdirektori.
+    _ Dan terkahir membuat `main.html` pada subdirektori `templates` di direktori `main`.
+
+[ ] Membuat input `form`
+
+    + Step pertama adalah membuat file `forms.py` pada direktori `main`.
+    ```
+
+    from django.forms import ModelForm
+    from main.models import Product
+
+    class ProductForm(ModelForm):
+        class Meta:
+            model = Product
+            fields = ["name", "amount", "description", "category", "price"]
+
+    ```
+
+    + 
+
+[ ] Menambahkan 5 fungsi `views` (HTML, XML, JSON, XML by ID, dan JSON by ID)
+
+[ ] Membuat routing URL untuk masing-masing `views`
+
+[ ] Memjawab pada `READ.ME`
+
+[ ] Mengakses URL dengan Postman
+
+[ ] Melakukan `add -commit -push` ke GitHub
+
+## POSTMAN
+
+* *HTML*
+
+
+
++ *XML*
+
+
+
+- *JSON*
+
+
+
++ *XML by ID*
+
+
+
+- *JSON by ID*
