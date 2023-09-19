@@ -283,16 +283,18 @@ Step awal sebelum mengerjakan `checklist`:
 * Mengatur routing dari `main/` ke `/`
 Pada step ini mengubah isi `urls.py`, dimana mengubah bagian `urlpatterns` dengan mengubah routing `main/` ke `/`.
 
-* Kemudiang melakukan implementasi Skeleton
-    _ Pada step ini, membuat folder baru yaitu folder `template` dan membuat berkas `base.html`.
-    _ Lalu melakukan penyesuaian `settings.py` pada subdirektori.
-    _ Dan terkahir membuat `main.html` pada subdirektori `templates` di direktori `main`.
+* Kemudian melakukan implementasi Skeleton
+    
+    * Pada step ini, membuat folder baru yaitu folder `template` dan membuat berkas `base.html`.
+    
+    * Lalu melakukan penyesuaian `settings.py` pada subdirektori.
+    
+    * Dan terkahir membuat `main.html` pada subdirektori `templates` di direktori `main`.
 
-[ ] Membuat input `form`
-
-    + Step pertama adalah membuat file `forms.py` pada direktori `main`.
+_Checklist :_
+1. Membuat input `form`
+    *  Step pertama adalah membuat file `forms.py` pada direktori `main`.
     ```
-
     from django.forms import ModelForm
     from main.models import Product
 
@@ -300,10 +302,7 @@ Pada step ini mengubah isi `urls.py`, dimana mengubah bagian `urlpatterns` denga
         class Meta:
             model = Product
             fields = ["name", "amount", "description", "category", "price"]
-
     ```
-
-    + 
 
 [ ] Menambahkan 5 fungsi `views` (HTML, XML, JSON, XML by ID, dan JSON by ID)
 
