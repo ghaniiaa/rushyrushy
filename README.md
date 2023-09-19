@@ -292,7 +292,7 @@ Pada step ini mengubah isi `urls.py`, dimana mengubah bagian `urlpatterns` denga
     * Dan terkahir membuat `main.html` pada subdirektori `templates` di direktori `main`.
 
 _Checklist :_
-1. Membuat input `form`
++ Membuat input `form`
     *  Step pertama adalah membuat file `forms.py` pada direktori `main`.
     ```
     from django.forms import ModelForm
@@ -304,15 +304,273 @@ _Checklist :_
             fields = ["name", "amount", "description", "category", "price"]
     ```
 
-[ ] Menambahkan 5 fungsi `views` (HTML, XML, JSON, XML by ID, dan JSON by ID)
+    * Menambahkan `import` pada `views.py` di `main`
+    ```
+    from django.http import HttpResponseRedirect
+    from main.forms import ProductForm
+    from django.urls import reverse
+    from .models import Product
+    ```
 
-[ ] Membuat routing URL untuk masing-masing `views`
+    * Kemudian, menambahkan fungsi baru pada `views.py` di `main`
+    ```
+    def show_main(request):
+    products = Product.objects.all()
+    total_items = products.count()  # Menghitung jumlah item yang tersimpan
 
-[ ] Memjawab pada `READ.ME`
+    context = {
+        'name': 'Ghania Larasati Nurjayadi Putri',  # Ganti dengan nama kamu
+        'class': 'PBP D',  # Ganti dengan kelas kamu
+        'products': products,
+        'total_items': total_items,  # Menyertakan jumlah item
+    }
 
-[ ] Mengakses URL dengan Postman
+    return render(request, "main.html", context)
 
-[ ] Melakukan `add -commit -push` ke GitHub
+    def create_product(request):
+        form = ProductForm(request.POST or None)
+
+        if form.is_valid() and request.method == "POST":
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+
+        context = {'form': form}
+        return render(request, "create_product.html", context)
+    ```
+
+    * Selanjutnya, mengimport fungsi dari `views.py` ke `urls.py` pada direktori `main`
+    ```
+    from main.views import show_main, create_product
+    ```
+
+    * Lalu tambahkan `path` baru pada `urlpatterns` di `urls.py`
+    ```
+    path('create-product', create_product, name='create_product'),
+    ```
+
+    * Membuat `create_product.html` pada direktori `main` dan di subdirektori `templates`, yang berisi
+    ```
+    {% extends 'base.html' %} 
+
+        {% block content %}
+        <h1>Add New Product</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Add Product"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    {% endblock %}
+    ```
+
+    * Kemudian men-adjust `main.html`
+    ```
+    {% extends 'base.html' %}
+
+    {% block content %}
+        <h1>RushyRushy</h1>
+
+        <h5>Name:</h5>
+        <p>{{name}}</p>
+
+        <h5>Class:</h5>
+        <p>{{class}}</p>
+
+    <!-- Menampilkan pesan jumlah item yang tersimpan -->
+    <p>Kamu menyimpan {{ total_items }} item pada aplikasi ini.</p>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Date Added</th>
+            <th>Amount</th>
+            <th>Description</th>
+        <th>Category</th>
+            <th>Price</th>
+        </tr>
+
+        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+        {% for product in products %}
+            <tr>
+                <td>{{product.name}}</td>
+            <td>{{product.date_added}}</td>
+            <td>{{product.amount}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.price}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <a href="{% url 'main:create_product' %}">
+        <button>
+            Add New Product
+        </button>
+    </a>
+
+    {% endblock content %}
+    ```
+
++ Menambahkan 5 fungsi `views` (HTML, XML, JSON, XML by ID, dan JSON by ID)
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template HTML pada `views,py` 
+    ```
+    def show_main(request):
+        products = Product.objects.all()
+        total_items = products.count()  # Menghitung jumlah item yang tersimpan
+
+        context = {
+            'name': 'Ghania Larasati Nurjayadi Putri',  # Ganti dengan nama kamu
+            'class': 'PBP D',  # Ganti dengan kelas kamu
+            'products': products,
+            'total_items': total_items,  # Menyertakan jumlah item
+        }
+
+        return render(request, "main.html", context)
+    
+    def create_product(request):
+        form = ProductForm(request.POST or None)
+
+        if form.is_valid() and request.method == "POST":
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+
+        context = {'form': form}
+        return render(request, "create_product.html", context)
+    ```
+
+    Kemudian sebelum melakukan `views` untuk XML, JSON, XML by ID, dan JSON by ID:
+
+    Mengimport pada `views.py`,
+    ```
+    from django.http import HttpResponse
+    from django.core import serializers
+    ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template XML pada `views,py`
+    ```
+    def show_xml(request):
+        data = Product.objects.all()
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+    ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template JSON pada `views,py`
+    ```
+    def show_json(request):
+        data = Product.objects.all()
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template XML by ID pada `views,py`
+    ```
+    def show_xml_by_id(request, id):
+        data = Product.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+    ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template JSON by ID pada `views,py`
+    ```
+    def show_json_by_id(request, id):
+        data = Product.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+
++ Membuat routing URL untuk masing-masing `views`
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template HTML
+
+        - Import pada `urls.py`
+        ```
+        from main.views import show_main, create_product
+        ```
+
+        - Menambahkan `path` pada `urls.py`
+        ```
+        path('create-product', create_product, name='create_product'),
+        ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template XML
+
+        - Import pada `urls.py`
+        ```
+        from main.views import show_main, create_product, show_xml 
+        ```
+
+        - Menambahkan `path` pada `urls.py`
+        ```
+        path('xml/', show_xml, name='show_xml'), 
+        ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template JSON
+
+        - Import pada `urls.py`
+        ```
+        from main.views import show_main, create_product, show_xml, show_json
+        ```
+
+        - Menambahkan `path` pada `urls.py`
+        ```
+        path('json/', show_json, name='show_json'), 
+        ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template XML by ID
+
+        - Import pada `urls.py`
+        ```
+        from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id
+        ```
+
+        - Menambahkan `path` pada `urls.py`
+        ```
+        path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+        ```
+
+    * Menampilkan form yang telah dibuat dengan menggunakan template JASN by ID
+
+        - Import pada `urls.py`
+        ```
+        from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id 
+        ```
+
+        - Menambahkan `path` pada `urls.py`
+        ```
+        path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+        ```
+
++ Memjawab pada `READ.ME`
+
+    Menjawab README.md sesuai dengan jawaban diatas.
+
++ Mengakses URL dengan Postman
+
+    1. Mendownload `Postman`
+
+    1. Memasukan link ke dalam `Postman` dan melakukan `send`:
+
+        * **HTML** : `http://localhost:8000/`
+
+        * **XML** : `http://localhost:8000/xml`
+
+        * **JSON** : ` http://localhost:8000/json`
+
+        * **XML by ID** : `http://localhost:8000/xml/[id]`
+
+        * **JSON by ID** : `http://localhost:8000/json/[id]`
+
++ Melakukan `add -commit -push` ke GitHub
+
+    Tidak lupa melakukan `add -commit -push` pada terminal untuk menyimpan semua perubahan.
 
 ## POSTMAN
 
