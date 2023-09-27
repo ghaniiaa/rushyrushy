@@ -593,3 +593,371 @@ _Checklist :_
 - *JSON by ID*
 
 ![image](https://github.com/ghaniiaa/rushyrushy/assets/116947086/1895462a-5dea-41f8-97ad-bc7671b6ec1e)
+
+
+# Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django
+
+## Jawaban Pertanyaan
+
+__1. Apa itu Django `UserCreationForm`, dan jelaskan apa kelebihan dan kekurangannya?__
+
+_Jawab:_ 
+
+Django `UserChangeForm` adalah sebuah kelas yang diturunkan dari `django.contrib.auth.forms` dan digunakan untuk membuat formulir pendaftaran pengguna baru. 
+
+* Kelebihan dari `UserChangeForm`: 
+
+    * Mudah Digunakan: `UserChangeForm` sudah tersedia dan siap digunakan dalam Django, sehingga Anda tidak perlu membuatnya dari awal.
+
+    * Validasi Bawaan: Form ini mencakup validasi bawaan untuk memastikan bahwa data yang dimasukkan oleh pengguna memenuhi persyaratan yang ditetapkan, seperti panjang password, dan username yang unik.
+
+    * Integrasi Mudah: `UserChangeForm` terintegrasi dengan baik dengan sistem autentikasi Django, sehingga memudahkan Anda dalam mengelola akun pengguna.
+
+* Kekurangannya dari `UserChangeForm`: 
+    * Hanya memiliki dua bidang, yaitu username dan password, sehingga jika ingin menambahkan bidang lain seperti email, nama, atau profil, harus membuat kelas turunan sendiri atau menggunakan kelas lain seperti `UserChangeForm` atau `UserCreationForm`.
+
+    * Tidak Otomatis Mengelola Semua Aspek Keamanan: `UserCreationForm` membantu dalam membuat akun pengguna, tetapi tidak menangani semua aspek keamanan, seperti melindungi terhadap serangan brute force atau SQL injection. Maka perlu mengambil langkah-langkah tambahan untuk menjaga keamanan aplikasi.
+
+
+__2. Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?__
+
+_Jawab:_ 
+
+Dalam konteks Django:
+
+* Autentikasi adalah proses verifikasi identitas pengguna, yaitu memeriksa apakah pengguna yang mengakses aplikasi adalah orang yang ia klaim sebagai identitasnya. Django menyediakan sistem autentikasi yang mencakup pengelolaan akun pengguna, otentikasi melalui username dan password, serta dukungan untuk autentikasi dengan OAuth, token, atau metode lainnya.
+
+* Otorisasi adalah proses menentukan izin atau hak akses apa yang diberikan kepada pengguna setelah mereka berhasil terotentikasi. Ini melibatkan pengelolaan tingkat akses, seperti apa yang bisa dilakukan atau diakses oleh pengguna dalam aplikasi.
+
+Keduanya penting karena autentikasi memastikan bahwa hanya pengguna yang sah yang dapat mengakses aplikasi, sementara otorisasi mengendalikan apa yang dapat dilakukan oleh pengguna yang telah terotentikasi.
+
+__3. Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?__
+
+_Jawab:_ 
+
+Cookies adalah file teks kecil yang disimpan oleh browser web di komputer pengguna, yang berisi informasi tentang pengguna dan preferensinya saat mengunjungi sebuah situs web. Django menggunakan cookies untuk mengelola data sesi pengguna, yaitu data yang berlaku selama pengguna mengakses aplikasi web dalam satu browser. Data sesi dapat berisi informasi seperti identitas pengguna, status login, bahasa, tema, keranjang belanja, dan lain-lain. Django menyimpan data sesi di server dan mengirimkan sebuah cookie dengan ID sesi ke browser pengguna. Cookie ini kemudian dikirim kembali ke server setiap kali pengguna membuat permintaan, sehingga server dapat mengambil data sesi yang sesuai dengan ID sesi tersebut.
+
+__4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?__
+
+_Jawab:_ 
+
+Penggunaan cookies tidak sepenuhnya aman secara default dalam pengembangan web, karena ada risiko potensial yang harus diwaspadai, seperti:
+
+* Cookie dapat dicuri oleh pihak ketiga yang dapat mengakses jaringan yang sama dengan pengguna, misalnya melalui serangan man-in-the-middle atau sniffing. Hal ini dapat menyebabkan pencurian identitas, pembajakan sesi, atau penyalahgunaan data pribadi pengguna. Untuk mencegah hal ini, sebaiknya menggunakan protokol HTTPS yang mengenkripsi komunikasi antara browser dan server, serta mengatur atribut secure pada cookie agar hanya dikirim melalui HTTPS.
+
+* Cookie dapat dimodifikasi oleh pengguna atau skrip jahat yang berjalan di browser, misalnya melalui serangan cross-site scripting (XSS) atau tampering. Hal ini dapat menyebabkan pemalsuan permintaan, manipulasi data, atau eksekusi kode jahat di server. Untuk mencegah hal ini, sebaiknya menggunakan mekanisme validasi dan verifikasi pada cookie, seperti tanda tangan digital, checksum, atau token CSRF, serta mengatur atribut httponly pada cookie agar tidak dapat diakses oleh skrip JavaScript.
+
+* Cookie dapat melanggar privasi pengguna jika mengandung informasi sensitif atau pribadi yang tidak diinginkan oleh pengguna, misalnya melalui pelacakan, profil, atau iklan yang ditargetkan. Hal ini dapat menyebabkan ketidaknyamanan, ketidakpercayaan, atau kerugian bagi pengguna. Untuk mencegah hal ini, sebaiknya menggunakan cookie sesuai dengan hukum dan etika yang berlaku, seperti meminta persetujuan pengguna, memberikan pilihan opt-out, atau menghapus cookie yang sudah tidak diperlukan.
+
+__5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).__
+
+_Jawab:_ 
+
+Berikut adalah langkah-langkah implementasi dari checklist yang telah disebutkan sebelumnya:
+
+***Implementasi Autentikasi, Session, dan Cookies:***
+
++ **Aktivasi Virtual Environment**: Aktifkan virtual environment dengan menjalankan perintah berikut di direktori proyek Anda:
+
+    ```
+    env\Scripts\activate.bat
+    ```
+
++ **Membuat Formulir Pendaftaran**: 
+
+    Di `views.py`, tambahkan import dan buat fungsi `register` yang akan menangani formulir pendaftaran:
+
+    ```
+    from django.contrib.auth.forms import UserCreationForm
+    from django.contrib import messages
+
+    def register(request):
+        form = UserCreationForm()
+
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Your account has been successfully created!')
+                return redirect('main:login')
+        context = {'form': form}
+        return render(request, 'register.html', context)
+    ```
+
++ **Membuat Halaman Registrasi**: 
+    
+    Buat template HTML dengan nama `register.html` untuk halaman registrasi yang akan menampilkan formulir pendaftaran dan pesan kesalahan jika ada kesalahan dalam pengisian formulir.
+
++ **Membuat Fungsi Login**: 
+
+    Di `views.py`, tambahkan import dan buat fungsi `login_user` yang akan menangani proses login:
+
+    ```
+    from django.contrib.auth import authenticate, login
+
+    def login_user(request):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('main:show_main')
+            else:
+                messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+        context = {}
+        return render(request, 'login.html', context)
+    ```
+
++ **Membuat Halaman Login**: 
+
+    Buat template HTML dengan nama `login.html` untuk halaman login yang akan menampilkan formulir login dan pesan kesalahan jika diperlukan.
+
++ **Membuat Tombol Logout**: 
+    
+    Di `views.py`, tambahkan fungsi `logout_user` untuk mengelola proses logout:
+
+    ```
+    from django.contrib.auth import logout
+
+    def logout_user(request):
+        logout(request)
+        return redirect('main:login')
+    ```
+
++_ **Membatasi Akses**: 
+
+    Terapkan pembatasan akses dengan decorator `@login_required` di halaman utama:
+
+    ```
+    from django.contrib.auth.decorators import login_required
+
+    @login_required(login_url='/login')
+    def show_main(request):
+        # Konten halaman utama
+    ```
+
++ **Menggunakan Cookies**: 
+
+Di `views.py`, tambahkan kode untuk melacak aktivitas login terakhir pengguna:
+
+    ```
+    import datetime
+    from django.http import HttpResponseRedirect
+    from django.urls import reverse
+
+    def login_user(request):
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                response = HttpResponseRedirect(reverse("main:show_main"))
+                response.set_cookie('last_login', str(datetime.datetime.now()))
+                return response
+            else:
+                messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+        context = {}
+        return render(request, 'login.html', context)
+    ```
+
+    Di dalam `show_main`, tambahkan informasi aktivitas login terakhir ke dalam variabel `context`:
+
+    ```
+    context = {
+        'name': request.user.username,
+        'class': 'PBP A',
+        'products': products,
+        'last_login': request.COOKIES['last_login'],
+    }
+    ```
+
+    Dan tambahkan kode di halaman HTML `main.html` untuk menampilkan informasi tersebut.
+
++ **Menghubungkan Produk dengan Pengguna**: 
+
+    Di model `Product` dalam `models.py`, hubungkan setiap produk dengan pengguna yang membuatnya:
+
+    ```
+    from django.contrib.auth.models import User
+
+    class Product(models.Model):
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
+        # Sisanya adalah field lainnya
+    ```
+
+    Di `views.py`, dalam fungsi `create_product`, tambahkan informasi pengguna sebelum menyimpan produk:
+
+    ```
+    def create_product(request):
+        form = ProductForm(request.POST or None)
+
+        if form.is_valid() and request.method == "POST":
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+    ```
+
++ **Migrasi Basis Data**: 
+
+    Jalankan migrasi basis data untuk menerapkan perubahan dalam model produk dengan perintah:
+
+    ```
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+    Saat migrasi dilakukan, mungkin Anda harus memilih opsi untuk menetapkan nilai default untuk field `user` pada seluruh baris yang sudah ada dalam basis data.
+
++  **Menjalankan Aplikasi**: 
+
+    Jalankan aplikasi Django Anda dengan perintah:
+
+    ```
+    python manage.py runserver
+    ```
+
+    Selanjutnya, buka http://localhost:8000/ di browser Anda dan uji coba registrasi, login, logout, dan tampilan halaman utama dengan baik.
+
+
+***Mengimplementasikan Penambahan dan Pengurangan Amount:***
+
+    + **Tambahkan Kolom Stock pada Model Product:**
+    
+        - Buka file `models.py` dalam aplikasi Django Anda.
+
+        - Tambahkan kolom `stock` ke dalam model `Product` untuk melacak jumlah stok suatu produk.
+
+    ```
+    class Product(models.Model):
+        # Kolom-kolom yang ada sebelumnya
+        stock = models.IntegerField(default=0)  # Tambahkan kolom stock
+    ```
+
+    + **Migrasi Basis Data:**
+
+        - Jalankan perintah `makemigrations` dan `migrate` untuk membuat dan menerapkan perubahan basis data baru.
+
+    ```
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+    + **Update Tampilan HTML:**
+
+        - Buka file `main.html` atau template yang Anda gunakan untuk menampilkan produk.
+
+        - Tambahkan tombol "+" dan "-" di samping kolom amount untuk setiap produk.
+
+    ```
+    <td>
+        <form method="POST" action="{% url 'main:decrement_stock' product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-danger">-</button>
+        </form>
+        <span class="mx-2">{{ product.amount }}</span>
+        <form method="POST" action="{% url 'main:increment_stock' product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-success">+</button>
+        </form>
+    </td>
+    ```
+
+    + **Membuat Fungsi View Untuk Penambahan dan Pengurangan Stock:**
+    
+        - Buka file `views.py` dan tambahkan fungsi view `increment_stock` dan `decrement_stock` untuk menangani permintaan pengguna ketika mereka mengklik tombol "+" atau "-".
+
+    ```
+    from django.shortcuts import get_object_or_404
+
+    @login_required(login_url='/login')
+    def increment_stock(request, product_id):
+        product = get_object_or_404(Product, pk=product_id)
+        if request.method == 'POST':
+            product.stock += 1
+            product.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    @login_required(login_url='/login')
+    def decrement_stock(request, product_id):
+        product = get_object_or_404(Product, pk=product_id)
+        if request.method == 'POST':
+            if product.stock > 0:
+                product.stock -= 1
+                product.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+    ```
+
+    + **Tambahkan URL untuk Fungsi View Baru:**
+
+        - Buka file `urls.py` dalam aplikasi Anda dan tambahkan URL untuk view `increment_stock` dan `decrement_stock`.
+
+    ```
+    urlpatterns = [
+        # URL lainnya
+        path('increment_stock/<int:product_id>/', views.increment_stock, name='increment_stock'),
+        path('decrement_stock/<int:product_id>/', views.decrement_stock, name='decrement_stock'),
+    ]
+    ```
+
+    + **Terapkan Perubahan di Template:**
+
+        - Pastikan perubahan HTML di template Anda sudah sesuai dengan langkah-langkah di atas.
+
+    + **Uji Coba**: 
+    
+    Jalankan server Django Anda (`python manage.py runserver`) dan uji coba fitur penambahan dan pengurangan amount pada produk.
+
+***Mengimplementasikan Penghapusan Objek:***
+
+    + **Tambahkan Tombol Hapus di Tampilan HTML:**
+
+        - Buka file `main.html` atau template yang Anda gunakan untuk menampilkan produk.
+
+        - Tambahkan tombol "Hapus" di setiap baris produk.
+
+    ```
+    <td>
+        <!-- Tombol penambahan dan pengurangan amount -->
+    </td>
+    <td>
+        <form method="POST" action="{% url 'main:delete_product' product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+        </form>
+    </td>
+    ```
+
+    + **Membuat Fungsi View untuk Penghapusan Objek:**
+
+        - Buka file `views.py` dan tambahkan fungsi view `delete_product` untuk menangani permintaan pengguna ketika mereka mengklik tombol "Hapus".
+
+    ```
+    @login_required(login_url='/login')
+    def delete_product(request, product_id):
+        product = get_object_or_404(Product, pk=product_id)
+        if request.method == 'POST':
+            product.delete()
+        return HttpResponseRedirect(reverse('main:show_main'))
+    ```
+
+    + **Tambahkan URL untuk Fungsi View Baru:**
+
+        - Buka file `urls.py` dalam aplikasi Anda dan tambahkan URL untuk view `delete_product`.
+
+    ```
+    urlpatterns = [
+        # URL lainnya
+        path('delete_product/<int:product_id>/', views.delete_product, name='delete_product'),
+    ]
+    ```
+
+    + **Terapkan Perubahan di Template**: 
+    
+    Pastikan perubahan HTML di template sudah sesuai dengan langkah-langkah di atas.
+
+    + **Uji Coba**: 
+    
+    Jalankan server Django Anda (`python manage.py runserver`) dan uji coba fitur penghapusan objek.

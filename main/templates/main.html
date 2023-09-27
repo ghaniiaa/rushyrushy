@@ -12,28 +12,66 @@
 <!-- Menampilkan pesan jumlah item yang tersimpan -->
 <p>Kamu menyimpan {{ total_items }} item pada aplikasi ini.</p>
 
+<style>
+    /* Mengatur tata letak sel-sel tabel ke tengah */
+    .center-table {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    /* Mengatur sel-sel tabel ke tengah secara horizontal dan vertikal */
+    .center-cell {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
 <table>
     <tr>
         <th>Name</th>
         <th>Date Added</th>
+        <th> </th>
+        <th> </th>
         <th>Amount</th>
+        <th> </th>
+        <th> </th>
         <th>Description</th>
-	<th>Category</th>
+	    <th>Category</th>
         <th>Price</th>
+        <th>Deleted</th>
     </tr>
 
     {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
 
     {% for product in products %}
-        <tr>
-            <td>{{product.name}}</td>
-	    <td>{{product.date_added}}</td>
-	    <td>{{product.amount}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.price}}</td>
-        </tr>
-    {% endfor %}
+    <tr>
+        <td class="center-cell">{{product.name}}</td>
+        <td class="center-cell">{{product.date_added}}</td>
+        <td>
+            <form method="POST" action="{% url 'main:decrement_stock' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-danger">-</button>
+            </form>
+        <td>
+        <td class="center-cell">{{product.amount}}<td>
+        <td>    
+            <form method="POST" action="{% url 'main:increment_stock' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-success">+</button>
+            </form>
+        </td>
+        <td>{{product.description}}</td>
+        <td class="center-cell">{{product.category}}</td>
+        <td class="center-cell">{{product.price}}</td>
+        <td>
+            <form method="POST" action="{% url 'main:delete_product' product.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+            </form>
+        </td>
+    </tr>
+{% endfor %}
+
 </table>
 
 <br />
@@ -43,5 +81,13 @@
         Add New Product
     </button>
 </a>
+
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
+
+<h5>Sesi terakhir login: {{ last_login }}</h5>
 
 {% endblock content %}

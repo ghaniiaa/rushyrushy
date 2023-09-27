@@ -1,12 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
     date_added = models.DateField(auto_now_add=True)
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=0)  # Ini mewakili jumlah stok
     description = models.TextField()
     category = models.TextField()
     price = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
