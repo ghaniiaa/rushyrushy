@@ -7,9 +7,8 @@ class Product(models.Model):
     amount = models.IntegerField(default=0)  # Ini mewakili jumlah stok
     description = models.TextField()
     category = models.TextField()
-    price = models.IntegerField()
+    price = models.IntegerField()  # Kembalikan ke bidang 'price' tanpa 'price_per_item'
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
-
