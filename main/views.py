@@ -129,6 +129,7 @@ def create_product(request):
         name = request.POST['name']
         description = request.POST['description']
         price = request.POST['price']
+        amount = request.POST['amount']
         category = request.POST['category']
 
         # Dapatkan pengguna yang saat ini masuk

@@ -8,6 +8,12 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
+            <!-- Tanda silang untuk kembali ke halaman utama -->
+            <a href="{% url 'main:show_main' %}" class="btn-close">
+                Back to Inventory Page <!-- Ini adalah karakter "X" yang akan menggunakan jenis font yang sama -->
+            </a>
+
+
             <div class="card create-product-container">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Add New Product</h2>
@@ -27,6 +33,10 @@
                             <input type="number" name="price" id="price" class="form-control" step="0.01" required>
                         </div>
                         <div class="form-group">
+                            <label for="amount">Amount:</label>
+                            <input type="number" name="amount" id="amount" class="form-control" required>
+                        </div>
+                        <div class="form-group">
                             <label for="category">Category:</label>
                             <input type="text" name="category" id="category" class="form-control" required>
                         </div>
@@ -41,6 +51,17 @@
     </div>
 </div>
 <style>
+    /* Style untuk tombol tanda silang merah */
+    .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        font-family: Arial, sans-serif; 
+        color: #ff0000; /* Warna merah */
+        text-decoration: none;
+    }
+
     /* Style untuk konten create product */
     .create-product-container {
         background-color: #FFFFFF; /* Warna background card produk (putih) */
