@@ -102,9 +102,19 @@ def decrement_stock(request, product_id):
 @login_required(login_url='/login')
 def delete_product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
+    
+    # Jika produk yang akan dihapus adalah produk terakhir, maka cari produk sebelumnya
+    if product.is_last:
+        previous_product = Product.objects.filter(user=request.user, pk__lt=product_id).order_by('-pk').first()
+        if previous_product:
+            previous_product.is_last = True
+            previous_product.save()
+
     if request.method == 'POST':
         product.delete()
+
     return HttpResponseRedirect(reverse('main:show_main'))
+
 
 @login_required(login_url='/login')
 def edit_product(request, id):
@@ -129,18 +139,21 @@ def create_product(request):
         name = request.POST['name']
         description = request.POST['description']
         price = request.POST['price']
-        amount = request.POST['amount']
+        amount = request.POST['amount']  # Ambil nilai amount dari form
         category = request.POST['category']
 
         # Dapatkan pengguna yang saat ini masuk
         current_user = request.user
 
+        # Setel semua produk yang dimiliki pengguna ini menjadi bukan produk terakhir
+        Product.objects.filter(user=request.user).update(is_last=False)
+
         # Simpan data produk ke dalam database dengan pengguna yang saat ini masuk
-        product = Product(name=name, description=description, price=price, category=category, user=current_user)
+        product = Product(name=name, description=description, price=price, amount=amount, category=category, user=current_user, is_last=True)
         product.save()
 
         # Setelah produk berhasil ditambahkan, arahkan kembali ke halaman utama
         return redirect('main:show_main')
-
-    # Jika request bukan POST, tampilkan halaman form kosong
-    return render(request, 'create_product.html')
+    else:
+        # Jika metode bukan POST, tampilkan formulir kosong
+        return render(request, 'create_product.html')

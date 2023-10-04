@@ -9,6 +9,7 @@ class Product(models.Model):
     category = models.TextField()
     price = models.IntegerField()  # Kembalikan ke bidang 'price' tanpa 'price_per_item'
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_last = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

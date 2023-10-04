@@ -33,6 +33,11 @@
         transition: transform 0.3s ease-in-out;
     }
 
+    /* Style untuk produk terbaru (new product) */
+    .new-product {
+        background-color: #f0e6ff; /* Warna latar belakang ungu muda (light violet) */
+    }
+
     /* Hover effect untuk card produk */
     .product-card:hover {
         transform: scale(1.05); /* Membesarkan card saat hover */
@@ -121,7 +126,7 @@
     <div class="row">
         {% for product in products %}
         <div class="col-lg-4">
-            <div class="card product-card">
+            <div class="card product-card {% if product.is_last %}new-product{% endif %}">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description }}</p>
