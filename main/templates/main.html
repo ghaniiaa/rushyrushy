@@ -1,93 +1,195 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+    <title>RushyRushy</title>
+{% endblock meta %}
+
 {% block content %}
-    <h1>RushyRushy</h1>
-
-    <h5>Name:</h5>
-    <p>{{name}}</p>
-
-    <h5>Class:</h5>
-    <p>{{class}}</p>
-
-<!-- Menampilkan pesan jumlah item yang tersimpan -->
-<p>Kamu menyimpan {{ total_items }} item pada aplikasi ini.</p>
-
 <style>
-    /* Mengatur tata letak sel-sel tabel ke tengah */
-    .center-table {
-        margin: 0 auto;
-        text-align: center;
+    /* Style untuk tampilan navbar */
+    .navbar {
+        background-color: #007BFF; /* Warna background navbar (biru) */
+        color: #fff; /* Warna teks navbar (putih) */
     }
 
-    /* Mengatur sel-sel tabel ke tengah secara horizontal dan vertikal */
-    .center-cell {
-        text-align: center;
-        vertical-align: middle;
+    /* Style untuk teks nama aplikasi di navbar */
+    .navbar-brand {
+        color: #fff !important; /* Warna teks nama aplikasi (putih) */
+        font-size: 24px; /* Ukuran font nama aplikasi */
+    }
+
+    /* Style untuk bilah pencarian di navbar */
+    .navbar-search {
+        width: 300px; /* Lebar bilah pencarian */
+        text-align: center; /* Pusatkan isi bilah pencarian */
+    }
+
+    /* Style untuk card produk */
+    .product-card {
+        margin-bottom: 20px;
+        background-color: #FFFFFF; /* Warna background card produk (putih) */
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Hover effect untuk card produk */
+    .product-card:hover {
+        transform: scale(1.05); /* Membesarkan card saat hover */
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Bayangan lebih besar saat hover */
+    }
+
+    /* Style untuk card header */
+    .card-header {
+        background-color: #007BFF; /* Warna background card header (biru) */
+        color: #fff; /* Warna teks card header (putih) */
+    }
+
+    /* Style untuk tombol "Tampilkan Detail" di Collapse */
+    .btn-collapse {
+        background-color: #007BFF; /* Warna background tombol (biru) */
+        border: none;
+        color: #fff; /* Warna teks tombol (putih) */
+        font-weight: bold;
+    }
+
+    .btn-collapse:hover {
+        background-color: #0056b3; /* Warna tombol saat hover (biru lebih gelap) */
+    }
+
+    /* Style untuk informasi pengguna */
+    .user-info {
+        background-color: #F5F5F5; /* Warna background informasi pengguna (cool tone) */
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    /* Style untuk judul informasi pengguna */
+    .user-info-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Style untuk tombol logout */
+    .logout-btn {
+        background-color: #6C757D; /* Warna background tombol logout (abu-abu) */
+        color: #fff; /* Warna teks tombol logout (putih) */
+    }
+
+    .logout-btn:hover {
+        background-color: #495057; /* Warna tombol saat hover (abu-abu lebih gelap) */
     }
 </style>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Date Added</th>
-        <th> </th>
-        <th> </th>
-        <th>Amount</th>
-        <th> </th>
-        <th> </th>
-        <th>Description</th>
-	    <th>Category</th>
-        <th>Price Per Item</th>
-        <th>Deleted</th>
-    </tr>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">RushyRushy</a>
 
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+        <!-- Bilah pencarian di tengah navbar -->
+        <form class="form-inline navbar-search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search for items..." aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
 
-    {% for product in products %}
-    <tr>
-        <td class="center-cell">{{product.name}}</td>
-        <td class="center-cell">{{product.date_added}}</td>
-        <td>
-            <form method="POST" action="{% url 'main:decrement_stock' product.id %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-danger">-</button>
-            </form>
-        <td>
-        <td class="center-cell">{{product.amount}}<td>
-        <td>    
-            <form method="POST" action="{% url 'main:increment_stock' product.id %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-sm btn-success">+</button>
-            </form>
-        </td>
-        <td>{{product.description}}</td>
-        <td class="center-cell">{{product.category}}</td>
-        <td class="center-cell">{{product.price}}</td>
-        <td>
-            <form method="POST" action="{% url 'main:delete_product' product.id %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-            </form>
-        </td>
-    </tr>
-{% endfor %}
+        <!-- Tombol keluar yang mengarah ke halaman Login -->
+        <a href="{% url 'main:login' %}" class="btn btn-danger ml-auto logout-btn">Logout</a>
+    </div>
+</nav>
 
-</table>
-
-<br />
-
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
+<div class="container mt-4">
+    <!-- Tambahkan Bootstrap Collapse untuk informasi pengguna -->
+    <button class="btn btn-collapse" type="button" data-toggle="collapse" data-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+        Show User Details
     </button>
-</a>
 
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
+    <div class="collapse mt-3" id="collapseDetails">
+        <!-- Card Bootstrap untuk informasi pengguna -->
+        <div class="card user-info">
+            <div class="card-header">
+                <h5 class="card-title user-info-title">User Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Username:</strong> {{ name }}</p>
+                <p><strong>Class:</strong> {{ class }}</p>
+                <p><strong>Total items saved:</strong> {{ total_items }}</p>
+            </div>
+        </div>
+    </div>
 
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+    <!-- Loop melalui produk dan menampilkan card untuk setiap produk -->
+    <div class="row">
+        {% for product in products %}
+        <div class="col-lg-4">
+            <div class="card product-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><strong>Price:</strong> {{ product.price }}</p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productDetails{{ product.id }}">
+                        Details
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal untuk menampilkan detail produk -->
+        <div class="modal fade" id="productDetails{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productDetailsLabel{{ product.id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productDetailsLabel{{ product.id }}">Product Details: {{ product.name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Product Name:</strong> {{ product.name }}</p>
+                        <p><strong>Price:</strong> {{ product.price }}</p>
+                        <p><strong>Date Added:</strong> {{ product.date_added }}</p>
+                        <p><strong>Description:</strong> {{ product.description }}</p>
+                        <!-- Menambahkan tulisan "Quantity:" -->
+                        <p><strong>Quantity:</strong>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <!-- Tombol Kurang -->
+                                    <form method="POST" action="{% url 'main:decrement_stock' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-danger ml-2">-</button>
+                                    </form>
+                                </div>
+                                <!-- Menampilkan jumlah -->
+                                <span id="amount{{ product.id }}">{{ product.amount }}</span>
+                                <div>
+                                    <!-- Tombol Tambah -->
+                                    <form method="POST" action="{% url 'main:increment_stock' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-success mr-2">+</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </p>
+                        <p><strong>Category:</strong> {{ product.category }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- Tombol Edit -->
+                        <a href="{% url 'main:edit_product' product.id %}" class="btn btn-primary">Edit</a>
+                        <!-- Tombol Hapus -->
+                        <form method="POST" action="{% url 'main:delete_product' product.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'main:create_product' %}" class="btn btn-primary mt-4">Add New Product</a>
+
+    <h5 class="mt-4">Last login session: {{ last_login }}</h5>
+</div>
 {% endblock content %}

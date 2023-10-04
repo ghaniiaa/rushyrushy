@@ -961,3 +961,599 @@ Di `views.py`, tambahkan kode untuk melacak aktivitas login terakhir pengguna:
     + **Uji Coba**: 
     
     Jalankan server Django Anda (`python manage.py runserver`) dan uji coba fitur penghapusan objek.
+
+
+# Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS
+
+## Jawaban Pertanyaan
+
+__1.  Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.__
+
+_Jawab:_ 
+
+Element selector (selektor elemen) adalah salah satu jenis selektor dalam CSS yang digunakan untuk memilih dan menggaya elemen HTML berdasarkan nama elemennya. Manfaat element selector adalah sebagai berikut:
+
+    
+    + Seleksi Elemen Tertentu: Element selector memungkinkan kita untuk memilih elemen HTML tertentu berdasarkan tag-nya, misalnya <p> untuk paragraf, <h1> untuk judul level 1, dll.
+
+    + Gaya Umum: Element selector sering digunakan untuk menerapkan gaya yang sama pada elemen-elemen dengan tag yang sama dalam halaman web.
+
+    +Sederhana: Penggunaan element selector adalah yang paling sederhana dalam CSS.
+
+*Jenis-Jenis Selektor Elemen CSS:*
+
+    - **Selektor Elemen Tunggal**: Ini adalah jenis selektor elemen yang paling sederhana, yang memilih elemen berdasarkan tag-nya. Contoh:
+
+    ```css
+    p {
+        /* Gaya untuk semua elemen <p> dalam dokumen */
+    }
+    ```
+
+    - **Selektor Elemen Bersarang**: Selektor ini digunakan untuk memilih elemen yang berada dalam elemen lain. Contoh:
+
+    ```css
+    ul li {
+        /* Gaya untuk semua elemen <li> yang berada dalam elemen <ul> */
+    }
+    ```
+
+    - **Selektor Kelas**: Selektor ini memungkinkan kita untuk memilih elemen berdasarkan nilai atribut `class` yang diberikan pada elemen. Contoh:
+
+    ```css
+    .btn {
+        /* Gaya untuk semua elemen yang memiliki kelas "btn" */
+    }
+    ```
+
+    - **Selektor ID**: Selektor ini digunakan untuk memilih elemen berdasarkan nilai atribut `id` yang diberikan pada elemen. ID harus unik dalam satu halaman. Contoh:
+
+    ```css
+    #header {
+        /* Gaya untuk elemen dengan id "header" */
+    }
+    ```
+
+    - **Selektor Elemen Grup**: Ini memungkinkan kita untuk menerapkan gaya pada beberapa elemen dengan jenis elemen yang berbeda dalam satu aturan CSS. Contoh:
+    ```css
+
+    h1, h2, h3 {
+        /* Gaya untuk elemen <h1>, <h2>, dan <h3> */
+    }
+    ```
+
+    - **Selektor Universal**: Selektor ini memilih semua elemen dalam dokumen. Contoh:
+
+    ```css
+    * {
+        /* Gaya untuk semua elemen dalam dokumen */
+    }
+    ```
+
+    - **Pseudo-class Selector**: Ini adalah selektor yang digunakan untuk memilih elemen berdasarkan kondisi atau keadaan elemen, seperti `:hover`, `:active`, dan lainnya. Contoh:
+
+    ```css
+    a:hover {
+        /* Gaya untuk tautan saat mouse di atasnya */
+    }
+    ```
+
+
+__1.  Jelaskan HTML5 Tag yang kamu ketahui.__
+
+_Jawab:_ 
+
+1. `<header>`: Digunakan untuk menunjukkan bagian atas atau kepala dari sebuah halaman atau elemen. Biasanya berisi elemen-elemen seperti judul, logo, atau tautan menu utama.
+
+2. `<nav>`: Digunakan untuk mengelompokkan tautan menu navigasi. Ini membantu dalam membedakan bagian yang berisi tautan navigasi dari konten lainnya.
+
+3. `<section>`: Mengelompokkan konten yang terkait secara tematik dalam sebuah halaman. Ini membantu dalam mengorganisasi konten yang terkait dalam satu unit.
+
+4. `<article>`: Menandakan konten yang independen dan memiliki makna secara mandiri. Ini digunakan untuk artikel, berita, atau postingan blog yang dapat berdiri sendiri.
+
+5. `<footer>`: Merupakan bagian bawah dari sebuah elemen atau halaman web, biasanya berisi informasi seperti hak cipta, informasi kontak, atau tautan ke halaman terkait.
+
+6. `<aside>`: Digunakan untuk konten yang terkait dengan konten di sekitarnya dan dapat dianggap sebagai "sampingan." Biasanya digunakan untuk informasi tambahan, tautan terkait, atau iklan sampingan.
+
+7. `<figure>`: Digunakan untuk mengelompokkan konten media, seperti gambar, audio, atau video, beserta elemen `<figcaption>` untuk memberikan deskripsi singkat.
+
+8. `<table>`: Tag ini digunakan untuk membuat tabel dalam dokumen HTML. Tabel dapat berisi baris dan kolom yang membentuk grid untuk menampilkan data tabular.
+
+9. `<tr>` (Table Row): Tag ini digunakan untuk mendefinisikan baris dalam tabel. Setiap `<tr>` berisi satu atau lebih elemen `<td>` atau `<th>` yang membentuk sel-sel dalam baris tersebut.
+
+10. `<th>` (Table Header Cell): Tag ini digunakan untuk mendefinisikan sel kepala (header) dalam tabel.
+
+11. `<td>` (Table Data Cell): Tag ini digunakan untuk mendefinisikan sel data dalam tabel. Sel-sel data berisi informasi atau data yang ingin ditampilkan dalam tabel.
+
+
+__1.  Jelaskan perbedaan antara margin dan padding.__
+
+_Jawab:_ 
+
+Perbedaan antara margin dan padding adalah sebagai berikut:
+
+    1. **Margin**: Margin adalah ruang kosong di sekitar elemen HTML. Ini adalah jarak antara elemen dengan elemen-elemen lain di sekitarnya. Margin tidak memiliki warna latar belakang dan tidak memiliki pengaruh visual pada elemen itu sendiri. Margin berguna untuk mengatur jarak antara elemen-elemen dalam layout.
+
+    1. **Padding**: Padding adalah ruang kosong di antara konten elemen dan batas elemen itu sendiri. Ini adalah jarak antara konten elemen dan batas elemen. Padding dapat memiliki warna latar belakang dan akan mempengaruhi tampilan visual elemen itu sendiri.
+
+Maka ditarik kesimpulan, properti margin mengontrol ruang di luar elemen, dan properti padding mengontrol ruang di dalam elemen. Margin digunakan untuk menyesuaikan jarak elemen terhadap elemen lain (misalnya div terhadap div lain di halaman), dan padding digunakan untuk menyesuaikan tampilan elemen individu (misalnya jumlah piksel antara tepi div dan teks di dalamnya).
+
+
+__1.  Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?__
+
+_Jawab:_ 
+
+**Tailwind CSS**:
+
+1. **Pendekatan Modular**: Tailwind CSS menggunakan pendekatan yang sangat modular dengan memanfaatkan utilitas CSS yang telah diatur sebelumnya. Ini memungkinkan pengembang untuk membangun elemen UI dengan menumpuk kelas-kelas utilitas.
+
+2. **Fleksibilitas Tinggi**: Tailwind memberikan kontrol yang tinggi atas desain dan tampilan elemen UI. Anda dapat dengan mudah menyesuaikan setiap aspek tampilan sesuai kebutuhan.
+
+3. **Ukuran File Kecil**: Karena Anda hanya memuat utilitas CSS yang diperlukan, ukuran file akhir cenderung lebih kecil, menghasilkan waktu pemuatan yang lebih cepat.
+
+4. **Penggunaan Utilitas**: Tailwind menggunakan utilitas CSS seperti `mx-4`, `bg-blue-500`, dan `text-center` untuk mengatur margin, latar belakang, dan tata letak elemen.
+
+
+**Bootstrap**:
+
+1. **Kumpulan Komponen Siap Pakai**: Bootstrap menyediakan kumpulan besar komponen UI yang telah di-styling sebelumnya, seperti tombol, jumbotron, dan formulir. Ini memungkinkan pembuatan halaman web dengan cepat.
+
+2. **Kebutuhan Desain yang Konsisten**: Bootstrap dirancang untuk memastikan kekonsistenan desain dalam proyek. Ini cocok untuk proyek yang menginginkan tampilan yang seragam di seluruh halaman web.
+
+3. **Ukuran File Lebih Besar**: Karena Bootstrap menyertakan banyak komponen dan fitur, ukuran file Bootstrap cenderung lebih besar, yang dapat mempengaruhi waktu pemuatan halaman.
+
+4. **Penggunaan Kelas-Kelas CSS**: Bootstrap menggunakan kelas-kelas CSS seperti `btn`, `bg-primary`, dan `text-center` untuk mengatur tampilan elemen.
+
+
+**Kesimpulan**:
+
+- **Tailwind CSS** menekankan fleksibilitas tinggi, modularitas, dan penggunaan utilitas CSS.
+
+- **Bootstrap** lebih berfokus pada kemudahan penggunaan, kumpulan komponen siap pakai, dan konsistensi desain.
+- Pilihan antara keduanya tergantung pada kebutuhan dan preferensi proyek web Anda.
+
+
+__1.  Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).__
+
+_Jawab:_ 
+
+Untuk menyelesaikan checklist, saya melakukan beberapa perubahan pada code saya.
+
+1. **edit**
+    
+    Disini menambahkan beberapa potongan kode pada `views.py`. 
+
+    ```
+    @login_required(login_url='/login')
+    def edit_product(request, id):
+    # Get product berdasarkan ID
+    product = Product.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+    ```
+
+2. **merubah tampilan login**
+
+    ```
+    {% extends 'base.html' %}
+
+    {% block meta %}
+        <title>Login</title>
+    {% endblock meta %}
+
+    {% block content %}
+    <style>
+        /* Style untuk background halaman */
+        body {
+            background-color: #F5F5F5; /* Warna latar belakang halaman (cool tone) */
+        }
+
+        /* Style untuk konten login */
+        .login-container {
+            background-color: #FFFFFF; /* Warna background (putih) */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            font-family: 'Helvetica Neue', sans-serif; /* Font elegan */
+        }
+
+        /* Style untuk tombol login dan register */
+        .btn-login {
+            background-color: #007BFF; /* Warna tombol (biru) */
+            border: none;
+            color: #fff; /* Warna teks tombol (putih) */
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3; /* Warna tombol saat hover (biru lebih gelap) */
+        }
+
+        .btn-register {
+            background-color: #6C757D; /* Warna tombol register (abu-abu) */
+            border: none;
+            color: #fff; /* Warna teks tombol (putih) */
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-register:hover {
+            background-color: #495057; /* Warna tombol saat hover (abu-abu lebih gelap) */
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card login-container">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Welcome to RushyRushy</h2>
+                        <hr>
+
+                        <div id="loginCarousel" class="carousel slide mb-4" data-ride="carousel">
+                            <!-- Isi Carousel Sesuai Keinginanmu -->
+                            <div class="carousel-inner">
+                                <!-- Slide 1 -->
+                                <div class="carousel-item active">
+                                    <h4 class="text-center">Who Are You?</h4>
+                                    <div class="text-center">
+                                        <button class="btn btn-primary btn-lg mr-3" data-toggle="modal" data-target="#loginModal">Login</button>
+                                        <a href="{% url 'main:register' %}" class="btn btn-secondary btn-lg">Register</a>
+                                    </div>
+                                </div>
+
+                                <!-- Slide 2 -->
+                                <div class="carousel-item">
+                                    <h4 class="text-center">Fun Fact About Antique Stuff</h4>
+                                    <p class="text-center">Did you know that antique items can hold hidden stories of the past?</p>
+                                </div>
+
+                                <!-- Slide 3 -->
+                                <div class="carousel-item">
+                                    <h4 class="text-center">Discover Our App</h4>
+                                    <p class="text-center">Explore our amazing app features and start your journey today!</p>
+                                </div>
+                            </div>
+
+                            <!-- Carousel Controls -->
+                            <a class="carousel-control-prev" href="#loginCarousel" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#loginCarousel" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+                        <div class="text-center">
+                            <p id="registrationAlert" class="d-none alert alert-danger">Don't have an account yet? <a href="{% url 'main:register' %}" class="btn-link btn-register">Register Now</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'main:login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" name="username" id="username" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-login">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
+
+    ```
+
+3. **merubah tampilan register**
+
+    ```
+    {% extends 'base.html' %}
+
+    {% block meta %}
+        <title>Register</title>
+    {% endblock meta %}
+
+    {% block content %}
+    <style>
+        /* Style untuk konten register */
+        .register-container {
+            background-color: #F5F5F5; /* Warna background halaman (cool tone) */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            font-family: 'Helvetica Neue', sans-serif; /* Font yang lebih formal */
+        }
+
+        /* Style untuk tombol daftar dan tombol kembali */
+        .btn-register {
+            background-color: #007BFF; /* Warna background tombol daftar (biru) */
+            border: none;
+            color: #fff; /* Warna teks tombol (putih) */
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-register:hover {
+            background-color: #0056b3; /* Warna tombol saat hover (biru lebih gelap) */
+        }
+
+        .btn-back {
+            background-color: #6C757D; /* Warna background tombol kembali (abu-abu) */
+            border: none;
+            color: #fff; /* Warna teks tombol (putih) */
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn-back:hover {
+            background-color: #495057; /* Warna tombol saat hover (abu-abu lebih gelap) */
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card register-container">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Register</h2>
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }} <!-- Menggunakan as_p untuk menampilkan form sebagai paragraf -->
+                            <div class="text-center">
+                                <a href="{% url 'main:login' %}" class="btn btn-secondary btn-back">Back</a>
+                                <button type="submit" class="btn btn-primary btn-register">Register</button>
+                            </div>
+                        </form>
+
+                        {% if messages %}
+                            <ul>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
+    
+    ```
+
+4. **merubah tampilan tambah inventory**
+
+    ```
+    {% extends 'base.html' %}
+
+    {% block meta %}
+        <title>RushyRushy</title>
+    {% endblock meta %}
+
+    {% block content %}
+    <style>
+        /* Style untuk tampilan navbar */
+        .navbar {
+            background-color: #007BFF; /* Warna background navbar (biru) */
+            color: #fff; /* Warna teks navbar (putih) */
+        }
+
+        /* Style untuk teks nama aplikasi di navbar */
+        .navbar-brand {
+            color: #fff !important; /* Warna teks nama aplikasi (putih) */
+            font-size: 24px; /* Ukuran font nama aplikasi */
+        }
+
+        /* Style untuk bilah pencarian di navbar */
+        .navbar-search {
+            width: 300px; /* Lebar bilah pencarian */
+            text-align: center; /* Pusatkan isi bilah pencarian */
+        }
+
+        /* Style untuk card produk */
+        .product-card {
+            margin-bottom: 20px;
+            background-color: #FFFFFF; /* Warna background card produk (putih) */
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover effect untuk card produk */
+        .product-card:hover {
+            transform: scale(1.05); /* Membesarkan card saat hover */
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Bayangan lebih besar saat hover */
+        }
+
+        /* Style untuk card header */
+        .card-header {
+            background-color: #007BFF; /* Warna background card header (biru) */
+            color: #fff; /* Warna teks card header (putih) */
+        }
+
+        /* Style untuk tombol "Tampilkan Detail" di Collapse */
+        .btn-collapse {
+            background-color: #007BFF; /* Warna background tombol (biru) */
+            border: none;
+            color: #fff; /* Warna teks tombol (putih) */
+            font-weight: bold;
+        }
+
+        .btn-collapse:hover {
+            background-color: #0056b3; /* Warna tombol saat hover (biru lebih gelap) */
+        }
+
+        /* Style untuk informasi pengguna */
+        .user-info {
+            background-color: #F5F5F5; /* Warna background informasi pengguna (cool tone) */
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* Style untuk judul informasi pengguna */
+        .user-info-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Style untuk tombol logout */
+        .logout-btn {
+            background-color: #6C757D; /* Warna background tombol logout (abu-abu) */
+            color: #fff; /* Warna teks tombol logout (putih) */
+        }
+
+        .logout-btn:hover {
+            background-color: #495057; /* Warna tombol saat hover (abu-abu lebih gelap) */
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">RushyRushy</a>
+
+            <!-- Bilah pencarian di tengah navbar -->
+            <form class="form-inline navbar-search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search for items..." aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <!-- Tombol keluar yang mengarah ke halaman Login -->
+            <a href="{% url 'main:login' %}" class="btn btn-danger ml-auto logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Tambahkan Bootstrap Collapse untuk informasi pengguna -->
+        <button class="btn btn-collapse" type="button" data-toggle="collapse" data-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+            Show User Details
+        </button>
+
+        <div class="collapse mt-3" id="collapseDetails">
+            <!-- Card Bootstrap untuk informasi pengguna -->
+            <div class="card user-info">
+                <div class="card-header">
+                    <h5 class="card-title user-info-title">User Information</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Username:</strong> {{ name }}</p>
+                    <p><strong>Class:</strong> {{ class }}</p>
+                    <p><strong>Total items saved:</strong> {{ total_items }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loop melalui produk dan menampilkan card untuk setiap produk -->
+        <div class="row">
+            {% for product in products %}
+            <div class="col-lg-4">
+                <div class="card product-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text"><strong>Price:</strong> {{ product.price }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productDetails{{ product.id }}">
+                            Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal untuk menampilkan detail produk -->
+            <div class="modal fade" id="productDetails{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productDetailsLabel{{ product.id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="productDetailsLabel{{ product.id }}">Product Details: {{ product.name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Product Name:</strong> {{ product.name }}</p>
+                            <p><strong>Price:</strong> {{ product.price }}</p>
+                            <p><strong>Date Added:</strong> {{ product.date_added }}</p>
+                            <p><strong>Description:</strong> {{ product.description }}</p>
+                            <!-- Menambahkan tulisan "Quantity:" -->
+                            <p><strong>Quantity:</strong>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <!-- Tombol Kurang -->
+                                        <form method="POST" action="{% url 'main:decrement_stock' product.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-danger ml-2">-</button>
+                                        </form>
+                                    </div>
+                                    <!-- Menampilkan jumlah -->
+                                    <span id="amount{{ product.id }}">{{ product.amount }}</span>
+                                    <div>
+                                        <!-- Tombol Tambah -->
+                                        <form method="POST" action="{% url 'main:increment_stock' product.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-success mr-2">+</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </p>
+                            <p><strong>Category:</strong> {{ product.category }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- Tombol Edit -->
+                            <a href="{% url 'main:edit_product' product.id %}" class="btn btn-primary">Edit</a>
+                            <!-- Tombol Hapus -->
+                            <form method="POST" action="{% url 'main:delete_product' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'main:create_product' %}" class="btn btn-primary mt-4">Add New Product</a>
+
+        <h5 class="mt-4">Last login session: {{ last_login }}</h5>
+    </div>
+{% endblock content %}
+    ```

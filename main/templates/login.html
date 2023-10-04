@@ -5,41 +5,128 @@
 {% endblock meta %}
 
 {% block content %}
+<style>
+    /* Style untuk background halaman */
+    body {
+        background-color: #F5F5F5; /* Warna latar belakang halaman (cool tone) */
+    }
 
-<div class = "login">
+    /* Style untuk konten login */
+    .login-container {
+        background-color: #FFFFFF; /* Warna background (putih) */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        font-family: 'Helvetica Neue', sans-serif; /* Font elegan */
+    }
 
-    <h1>Login</h1>
+    /* Style untuk tombol login dan register */
+    .btn-login {
+        background-color: #007BFF; /* Warna tombol (biru) */
+        border: none;
+        color: #fff; /* Warna teks tombol (putih) */
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+    }
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+    .btn-login:hover {
+        background-color: #0056b3; /* Warna tombol saat hover (biru lebih gelap) */
+    }
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
-    </form>
+    .btn-register {
+        background-color: #6C757D; /* Warna tombol register (abu-abu) */
+        border: none;
+        color: #fff; /* Warna teks tombol (putih) */
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+    }
 
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}     
-        
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+    .btn-register:hover {
+        background-color: #495057; /* Warna tombol saat hover (abu-abu lebih gelap) */
+    }
+</style>
 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card login-container">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Welcome to RushyRushy</h2>
+                    <hr>
+
+                    <div id="loginCarousel" class="carousel slide mb-4" data-ride="carousel">
+                        <!-- Isi Carousel Sesuai Keinginanmu -->
+                        <div class="carousel-inner">
+                            <!-- Slide 1 -->
+                            <div class="carousel-item active">
+                                <h4 class="text-center">Who Are You?</h4>
+                                <div class="text-center">
+                                    <button class="btn btn-primary btn-lg mr-3" data-toggle="modal" data-target="#loginModal">Login</button>
+                                    <a href="{% url 'main:register' %}" class="btn btn-secondary btn-lg">Register</a>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 -->
+                            <div class="carousel-item">
+                                <h4 class="text-center">Fun Fact About Antique Stuff</h4>
+                                <p class="text-center">Did you know that antique items can hold hidden stories of the past?</p>
+                            </div>
+
+                            <!-- Slide 3 -->
+                            <div class="carousel-item">
+                                <h4 class="text-center">Discover Our App</h4>
+                                <p class="text-center">Explore our amazing app features and start your journey today!</p>
+                            </div>
+                        </div>
+
+                        <!-- Carousel Controls -->
+                        <a class="carousel-control-prev" href="#loginCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#loginCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                    <div class="text-center">
+                        <p id="registrationAlert" class="d-none alert alert-danger">Don't have an account yet? <a href="{% url 'main:register' %}" class="btn-link btn-register">Register Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'main:login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-login">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

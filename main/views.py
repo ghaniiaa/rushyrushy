@@ -24,26 +24,13 @@ def show_main(request):
     total_items = products.count()  # Menghitung jumlah item yang tersimpan
 
     context = {
-        'name': request.user.username,  # Ganti dengan nama kamu
-        'class': 'PBP D',  # Ganti dengan kelas kamu
+        'name': request.user.username,
+        'class': 'PBP D',
         'products': products,
-        'total_items': total_items,  # Menyertakan jumlah item
+        'total_items': total_items,
         'last_login': request.COOKIES['last_login'],
     }
-
     return render(request, "main.html", context)
-
-def create_product(request):
-    form = ProductForm(request.POST or None)
-
-    if form.is_valid() and request.method == "POST":
-        product = form.save(commit=False)
-        product.user = request.user
-        product.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
-        
-    context = {'form': form}
-    return render(request, "create_product.html", context)
 
 def show_xml(request):
     data = Product.objects.all()
@@ -117,3 +104,34 @@ def delete_product(request, product_id):
     if request.method == 'POST':
         product.delete()
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@login_required(login_url='/login')
+def edit_product(request, id):
+    # Get product berdasarkan ID
+    product = Product.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
+
+@login_required(login_url='/login')
+def create_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            return redirect('main:show_main')  # Mengalihkan kembali ke halaman utama setelah produk berhasil ditambahkan
+    else:
+        form = ProductForm()
+    
+    context = {'form': form}
+    return render(request, "create_product.html", context)

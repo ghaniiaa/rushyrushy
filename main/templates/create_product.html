@@ -1,19 +1,65 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Add New Product</title>
+{% endblock meta %}
 
 {% block content %}
-<h1>Add New Product</h1>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card create-product-container">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Add New Product</h2>
 
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" value="Add Product"/>
-            </td>
-        </tr>
-    </table>
-</form>
+                    <form method="POST" action="{% url 'main:create_product' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">Product Name:</label>
+                            <input type="text" name="name" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea name="description" id="description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="number" name="price" id="price" class="form-control" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <input type="text" name="category" id="category" class="form-control" required>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-create-product">Add Product</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* Style untuk konten create product */
+    .create-product-container {
+        background-color: #FFFFFF; /* Warna background card produk (putih) */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    }
 
-{% endblock %}
+    /* Style untuk tombol "Add Product" */
+    .btn-create-product {
+        background-color: #007BFF; /* Warna background tombol (biru) */
+        border: none;
+        color: #fff; /* Warna teks tombol (putih) */
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-create-product:hover {
+        background-color: #0056b3; /* Warna tombol saat hover (biru lebih gelap) */
+    }
+</style>
+{% endblock content %}
