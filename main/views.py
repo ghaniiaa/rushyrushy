@@ -15,6 +15,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
@@ -123,15 +124,22 @@ def edit_product(request, id):
 
 @login_required(login_url='/login')
 def create_product(request):
-    if request.method == "POST":
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product = form.save(commit=False)
-            product.user = request.user
-            product.save()
-            return redirect('main:show_main')  # Mengalihkan kembali ke halaman utama setelah produk berhasil ditambahkan
-    else:
-        form = ProductForm()
-    
-    context = {'form': form}
-    return render(request, "create_product.html", context)
+    if request.method == 'POST':
+        # Ambil data yang dikirimkan melalui form
+        name = request.POST['name']
+        description = request.POST['description']
+        price = request.POST['price']
+        category = request.POST['category']
+
+        # Dapatkan pengguna yang saat ini masuk
+        current_user = request.user
+
+        # Simpan data produk ke dalam database dengan pengguna yang saat ini masuk
+        product = Product(name=name, description=description, price=price, category=category, user=current_user)
+        product.save()
+
+        # Setelah produk berhasil ditambahkan, arahkan kembali ke halaman utama
+        return redirect('main:show_main')
+
+    # Jika request bukan POST, tampilkan halaman form kosong
+    return render(request, 'create_product.html')
