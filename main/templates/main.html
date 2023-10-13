@@ -123,22 +123,9 @@
     </div>
 
     <!-- Loop melalui produk dan menampilkan card untuk setiap produk -->
-    <div class="row">
-        {% for product in products %}
-        <div class="col-lg-4">
-            <div class="card product-card {% if product.is_last %}new-product{% endif %}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description }}</p>
-                    <p class="card-text"><strong>Price:</strong> {{ product.price }}</p>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productDetails{{ product.id }}">
-                        Details
-                    </button>
-                </div>
-            </div>
-        </div>
+    {% for product in products %}
+    <div class="row" id="product-container"></div>
+
         <!-- Modal untuk menampilkan detail produk -->
         <div class="modal fade" id="productDetails{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productDetailsLabel{{ product.id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -190,11 +177,82 @@
             </div>
         </div>
 
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form" onsubmit="return false;">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name"></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="col-form-label">Price:</label>
+                                <input type="number" class="form-control" id="price" name="price"></input>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="col-form-label">Description:</label>
+                                <textarea class="form-control" id="description" name="description"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {% endfor %}
     </div>
 
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
     <a href="{% url 'main:create_product' %}" class="btn btn-primary mt-4">Add New Product</a>
 
+    <script>
+        async function getProducts() {
+            return fetch("{% url 'main:get_product_json' %}").then((res) => res.json());
+        }
+    
+        async function refreshProducts() {
+            const products = await getProducts();
+            const productContainer = document.getElementById("product-container");
+    
+            // Clear existing content
+            productContainer.innerHTML = "";
+    
+            products.forEach((product) => {
+                // Create a new card for each product
+                const card = document.createElement("div");
+                card.classList.add("col-md-4"); // Adjust the column width as needed
+    
+                card.innerHTML = `
+                    <div class="card product-card">
+                        <img src="${product.image_url}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">${product.description}</p>
+                            <p><strong>Price:</strong> ${product.price}</p>
+                            <p><strong>Quantity:</strong> ${product.amount}</p>
+                            <p><strong>Category:</strong> ${product.category}</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#productDetails${product.id}">Details</a>
+                        </div>
+                    </div>
+                `;
+    
+                productContainer.appendChild(card);
+            });
+        }
+    
+        refreshProducts();
+    </script>    
+    
     <h5 class="mt-4">Last login session: {{ last_login }}</h5>
 </div>
 {% endblock content %}

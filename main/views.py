@@ -16,6 +16,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -157,3 +158,25 @@ def create_product(request):
     else:
         # Jika metode bukan POST, tampilkan formulir kosong
         return render(request, 'create_product.html')
+
+def get_product_json(request):
+    product_item = Product.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))    
+
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        amount = request.POST.get("amount")
+        category = request.POST.get("category")
+        date_added = request.POST.get("date_added")
+        user = request.user
+
+        new_product = Product(name=name, price=price, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()   

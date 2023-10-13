@@ -1557,3 +1557,47 @@ Untuk menyelesaikan checklist, saya melakukan beberapa perubahan pada code saya.
     </div>
 {% endblock content %}
     ```
+
+# Tugas 6: JavaScript dan Asynchronous JavaScript
+
+## Jawaban Pertanyaan
+
+__1. Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.__
+
+_Jawab:_
+
+Perbedaan antara asynchronous programming dengan synchronous programming adalah bahwa asynchronous programming memungkinkan kode untuk berjalan secara bersamaan tanpa harus menunggu proses lain selesai, sedangkan synchronous programming membutuhkan kode untuk berjalan secara berurutan dan menunggu proses lain selesai sebelum melanjutkan. Contoh asynchronous programming adalah menggunakan fungsi callback, promise, atau async/await di JavaScript, yang dapat menangani operasi yang membutuhkan waktu lama seperti permintaan jaringan atau akses database tanpa menghalangi jalannya program. Contoh synchronous programming adalah menggunakan loop for, while, atau if-else di JavaScript, yang harus mengevaluasi kondisi atau mengulangi perintah secara berurutan.
+
+
+__2. Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.__
+
+_Jawab:_
+
+Paradigma event-driven programming adalah paradigma pemrograman yang mengatur alur program berdasarkan kejadian (event) yang terjadi di dalam program6. Kejadian tersebut bisa berasal dari interaksi pengguna, output sensor, atau pesan dari program atau thread lain. Contoh penerapan paradigma event-driven programming pada JavaScript dan AJAX adalah menggunakan event listener, yang memungkinkan fungsi tertentu untuk dipanggil ketika event tertentu terjadi. Misalnya, kita bisa menggunakan event listener untuk menangani event klik pada sebuah tombol, yang akan memicu fungsi untuk mengirim permintaan AJAX ke server dan menerima tanggapan.
+
+__3. Jelaskan penerapan asynchronous programming pada AJAX.__
+
+_Jawab:_
+
+Penerapan asynchronous programming pada AJAX adalah menggunakan teknik yang memungkinkan JavaScript untuk mengirim permintaan ke server tanpa harus menunggu tanggapan, dan melanjutkan eksekusi kode lainnya yang membuat halaman web tetap responsif. Asynchronous programming pada AJAX dapat dilakukan dengan menggunakan beberapa metode, seperti XMLHttpRequest (XHR), jQuery.ajax(), atau Fetch API. Metode-metode ini memungkinkan kita untuk menentukan fungsi callback yang akan dipanggil ketika tanggapan dari server diterima, dan melakukan operasi sesuai dengan data yang diterima.
+
+__4. Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.__
+
+_Jawab:_
+
+Fetch API dan jQuery.ajax() adalah dua teknologi yang dapat digunakan untuk melakukan permintaan AJAX dengan JavaScript. Keduanya memiliki kelebihan dan kekurangan masing-masing. Beberapa perbedaan antara Fetch API dan jQuery.ajax() adalah sebagai berikut:
+
+| Fetch API  | 	jQuery.ajax() |
+| ------------- | ------------- |
+| Merupakan teknologi baru yang didukung oleh browser modern  | Merupakan library JavaScript yang sudah lama digunakan dan didukung oleh banyak browser  |
+| Menggunakan promise untuk menangani hasil permintaan  | Menggunakan callback atau promise untuk menangani hasil permintaan  |
+| Tidak menolak promise ketika status HTTP error, tetapi hanya ketika ada kesalahan jaringan atau permintaan gagal  | Menolak promise ketika status HTTP error atau ada kesalahan jaringan  |
+| Secara default tidak mengirim atau menerima cookie dari server, kecuali jika ditentukan opsi credentials  | Secara default mengirim dan menerima cookie dari server  |
+| Memiliki metode bawaan untuk mengubah data menjadi berbagai format, seperti text, json, blob, dll.  | Tergantung pada format data yang dikirim oleh server  |
+
+Menurut pendapat saya, teknologi yang lebih baik untuk digunakan tergantung pada kebutuhan dan preferensi masing-masing pengembang. Fetch API memiliki keuntungan dalam hal kemudahan penggunaan, kemodernan, dan fleksibilitas. Namun, jQuery.ajax() memiliki keuntungan dalam hal kompatibilitas browser, penanganan error, dan konsistensi format data. 
+
+__5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).__
+
+_Jawab:_
+
