@@ -1,33 +1,40 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-    <title>RushyRushy</title>
+<title>RushyRushy</title>
 {% endblock meta %}
 
 {% block content %}
 <style>
     /* Style untuk tampilan navbar */
     .navbar {
-        background-color: #007BFF; /* Warna background navbar (biru) */
-        color: #fff; /* Warna teks navbar (putih) */
+        background-color: #007BFF;
+        /* Warna background navbar (biru) */
+        color: #fff;
+        /* Warna teks navbar (putih) */
     }
 
     /* Style untuk teks nama aplikasi di navbar */
     .navbar-brand {
-        color: #fff !important; /* Warna teks nama aplikasi (putih) */
-        font-size: 24px; /* Ukuran font nama aplikasi */
+        color: #fff !important;
+        /* Warna teks nama aplikasi (putih) */
+        font-size: 24px;
+        /* Ukuran font nama aplikasi */
     }
 
     /* Style untuk bilah pencarian di navbar */
     .navbar-search {
-        width: 300px; /* Lebar bilah pencarian */
-        text-align: center; /* Pusatkan isi bilah pencarian */
+        width: 300px;
+        /* Lebar bilah pencarian */
+        text-align: center;
+        /* Pusatkan isi bilah pencarian */
     }
 
     /* Style untuk card produk */
     .product-card {
         margin-bottom: 20px;
-        background-color: #FFFFFF; /* Warna background card produk (putih) */
+        background-color: #FFFFFF;
+        /* Warna background card produk (putih) */
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
         transition: transform 0.3s ease-in-out;
@@ -35,36 +42,45 @@
 
     /* Style untuk produk terbaru (new product) */
     .new-product {
-        background-color: #f0e6ff; /* Warna latar belakang ungu muda (light violet) */
+        background-color: #f0e6ff;
+        /* Warna latar belakang ungu muda (light violet) */
     }
 
     /* Hover effect untuk card produk */
     .product-card:hover {
-        transform: scale(1.05); /* Membesarkan card saat hover */
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Bayangan lebih besar saat hover */
+        transform: scale(1.05);
+        /* Membesarkan card saat hover */
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+        /* Bayangan lebih besar saat hover */
     }
 
     /* Style untuk card header */
     .card-header {
-        background-color: #007BFF; /* Warna background card header (biru) */
-        color: #fff; /* Warna teks card header (putih) */
+        background-color: #007BFF;
+        /* Warna background card header (biru) */
+        color: #fff;
+        /* Warna teks card header (putih) */
     }
 
     /* Style untuk tombol "Tampilkan Detail" di Collapse */
     .btn-collapse {
-        background-color: #007BFF; /* Warna background tombol (biru) */
+        background-color: #007BFF;
+        /* Warna background tombol (biru) */
         border: none;
-        color: #fff; /* Warna teks tombol (putih) */
+        color: #fff;
+        /* Warna teks tombol (putih) */
         font-weight: bold;
     }
 
     .btn-collapse:hover {
-        background-color: #0056b3; /* Warna tombol saat hover (biru lebih gelap) */
+        background-color: #0056b3;
+        /* Warna tombol saat hover (biru lebih gelap) */
     }
 
     /* Style untuk informasi pengguna */
     .user-info {
-        background-color: #F5F5F5; /* Warna background informasi pengguna (cool tone) */
+        background-color: #F5F5F5;
+        /* Warna background informasi pengguna (cool tone) */
         padding: 15px;
         border-radius: 10px;
         margin-top: 20px;
@@ -78,12 +94,37 @@
 
     /* Style untuk tombol logout */
     .logout-btn {
-        background-color: #6C757D; /* Warna background tombol logout (abu-abu) */
-        color: #fff; /* Warna teks tombol logout (putih) */
+        background-color: #6C757D;
+        /* Warna background tombol logout (abu-abu) */
+        color: #fff;
+        /* Warna teks tombol logout (putih) */
     }
 
     .logout-btn:hover {
-        background-color: #495057; /* Warna tombol saat hover (abu-abu lebih gelap) */
+        background-color: #495057;
+        /* Warna tombol saat hover (abu-abu lebih gelap) */
+    }
+
+    .backdrop {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.295);
+    }
+
+    #create-item-modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+    }
+
+    #modalCreate {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 </style>
 
@@ -104,7 +145,8 @@
 
 <div class="container mt-4">
     <!-- Tambahkan Bootstrap Collapse untuk informasi pengguna -->
-    <button class="btn btn-collapse" type="button" data-toggle="collapse" data-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+    <button class="btn btn-collapse" type="button" data-toggle="collapse" data-target="#collapseDetails"
+        aria-expanded="false" aria-controls="collapseDetails">
         Show User Details
     </button>
 
@@ -126,58 +168,62 @@
     {% for product in products %}
     <div class="row" id="product-container"></div>
 
-        <!-- Modal untuk menampilkan detail produk -->
-        <div class="modal fade" id="productDetails{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productDetailsLabel{{ product.id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="productDetailsLabel{{ product.id }}">Product Details: {{ product.name }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <!-- Modal untuk menampilkan detail produk -->
+    <div class="modal fade" id="productDetails{{ product.id }}" tabindex="-1" role="dialog"
+        aria-labelledby="productDetailsLabel{{ product.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productDetailsLabel{{ product.id }}">Product Details: {{ product.name }}
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Product Name:</strong> {{ product.name }}</p>
+                    <p><strong>Price:</strong> {{ product.price }}</p>
+                    <p><strong>Date Added:</strong> {{ product.date_added }}</p>
+                    <p><strong>Description:</strong> {{ product.description }}</p>
+                    <!-- Menambahkan tulisan "Quantity:" -->
+                    <p><strong>Quantity:</strong>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <!-- Tombol Kurang -->
+                            <form method="POST" action="{% url 'main:decrement_stock' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger ml-2">-</button>
+                            </form>
+                        </div>
+                        <!-- Menampilkan jumlah -->
+                        <span id="amount{{ product.id }}">{{ product.amount }}</span>
+                        <div>
+                            <!-- Tombol Tambah -->
+                            <form method="POST" action="{% url 'main:increment_stock' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-success mr-2">+</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <p><strong>Product Name:</strong> {{ product.name }}</p>
-                        <p><strong>Price:</strong> {{ product.price }}</p>
-                        <p><strong>Date Added:</strong> {{ product.date_added }}</p>
-                        <p><strong>Description:</strong> {{ product.description }}</p>
-                        <!-- Menambahkan tulisan "Quantity:" -->
-                        <p><strong>Quantity:</strong>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <!-- Tombol Kurang -->
-                                    <form method="POST" action="{% url 'main:decrement_stock' product.id %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-danger ml-2">-</button>
-                                    </form>
-                                </div>
-                                <!-- Menampilkan jumlah -->
-                                <span id="amount{{ product.id }}">{{ product.amount }}</span>
-                                <div>
-                                    <!-- Tombol Tambah -->
-                                    <form method="POST" action="{% url 'main:increment_stock' product.id %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn btn-sm btn-success mr-2">+</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </p>
-                        <p><strong>Category:</strong> {{ product.category }}</p>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- Tombol Edit -->
-                        <a href="{% url 'main:edit_product' product.id %}" class="btn btn-primary">Edit</a>
-                        <!-- Tombol Hapus -->
-                        <form method="POST" action="{% url 'main:delete_product' product.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
+                    </p>
+                    <p><strong>Category:</strong> {{ product.category }}</p>
+                </div>
+                <div class="modal-footer">
+                    <!-- Tombol Edit -->
+                    <a href="{% url 'main:edit_product' product.id %}" class="btn btn-primary">Edit</a>
+                    <!-- Tombol Hapus -->
+                    <form method="POST" action="{% url 'main:delete_product' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div id="create-item-modal">
+        <div id="backdrop-create" class="backdrop" onclick="removeModal()"></div>
+        <div id="modalCreate" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -196,76 +242,109 @@
                                 <input type="number" class="form-control" id="price" name="price"></input>
                             </div>
                             <div class="mb-3">
+                                <label for="description" class="col-form-label">Quantity:</label>
+                                <input class="form-control" id="quantity" name="quantity"></input>
+                            </div>
+                            <div class="mb-3">
                                 <label for="description" class="col-form-label">Description:</label>
                                 <textarea class="form-control" id="description" name="description"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="col-form-label">Category:</label>
+                                <input class="form-control" id="category" name="category"></input>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="buttonCreate" data-bs-dismiss="modal">Add Product</button>
+                        <button id="close-modal-create" type="button" class="btn btn-secondary"
+                            onclick="removeModal()">Close</button>
+                        <button onclick="createProduct()" type="button" class="btn btn-primary" id="button_add">Add
+                            Product</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        {% endfor %}
     </div>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="buttonCreate">Add Product by AJAX</button>
+    {% endfor %}
+</div>
 
-    <script>
-        async function getProducts() {
-            return fetch("{% url 'main:get_product_json' %}").then((res) => res.json());
-        }
-    
-        async function refreshProducts() {
-            const products = await getProducts();
-            const productContainer = document.getElementById("product-container");
-    
-            // Clear existing content
-            productContainer.innerHTML = "";
-    
-            products.forEach((product) => {
-                // Create a new card for each product
-                const card = document.createElement("div");
-                card.classList.add("col-md-4"); // Adjust the column width as needed
-    
-                card.innerHTML = `
-                    <div class="card product-card">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.fields.name}</h5>
+<button id="buttonCreate" type="button" class="btn btn-primary" onclick="displayModal()">Add Product by
+    AJAX</button>
+
+<h5 class="mt-4">Last login session: {{ last_login }}</h5>
+</div>
+
+<script>
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json());
+    }
+
+    async function refreshProducts() {
+        const products = await getProducts();
+        const productContainer = document.getElementById("product-container");
+
+        // Clear existing content
+        productContainer.innerHTML = "";
+
+        products.forEach((product) => {
+            // Create a new card for each product
+            const card = document.createElement("div");
+            card.classList.add("col-md-4"); // Adjust the column width as needed
+
+            card.innerHTML = `
+            <div class="card product-card">
+                <div class="card-body">
+                    <h5 class="card-title">${product.fields.name}</h5>
                             <p class="card-text">${product.fields.description}</p>
                             <p><strong>Price:</strong> ${product.fields.price}</p>
                             <p><strong>Quantity:</strong> ${product.fields.amount}</p>
                             <p><strong>Category:</strong> ${product.fields.category}</p>
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#productDetails${product.pk}">Details</a>
-                        </div>
-                    </div>
-                `;
-    
-                productContainer.appendChild(card);
-            });
-        }
-        function displayModal() {
-        document.querySelector('#modalCreate').style.display = "block"
-        }
-        
-        document.querySelector('#buttonCreate').onClick = displayModal
+                            </div>
+                            </div>
+                            `;
 
-        function addProduct() {
-        fetch("{% url 'main:add_product_ajax' %}", {
-            method: "POST",
-            body: new FormData(document.querySelector('#form'))
-        }).then(refreshProducts)
+            productContainer.appendChild(card);
+        });
+    }
 
-        document.getElementById("form").reset()
-        return false
-        }
+    function displayModal() {
+        console.log('show');
+        document.querySelector('#create-item-modal').style.display = "block"
+    }
 
-        refreshProducts();
-    </script>    
-    
-    <h5 class="mt-4">Last login session: {{ last_login }}</h5>
-</div>
+    function removeModal() {
+        console.log('remove');
+        document.querySelector('#create-item-modal').style.display = 'none';
+    }
+    async function createProduct() {
+        const form = new FormData()
+
+        console.log(document.querySelector('#name').value);
+        console.log(document.querySelector('#price').value);
+        console.log(document.querySelector('#description').value);
+        console.log(document.querySelector('#quantity').value);
+        console.log(document.querySelector('#category').value);
+
+        form.append('name', document.querySelector('#name').value)
+        form.append('price', document.querySelector('#price').value)
+        form.append('description', document.querySelector('#description').value)
+        form.append('amount', document.querySelector('#quantity').value)
+        form.append('category', document.querySelector('#category').value)
+
+        fetch('/create-product-ajax/', {
+            method: 'POST',
+            body: form,
+            headers: { 'X-CSRFToken': csrftoken },
+            mode: 'same-origin'
+        }).then(response => { console.log('success'); refreshProducts(); removeModal() })
+    }
+
+
+    document.querySelector('#create-item-modal').style.display = 'none';
+
+    refreshProducts();
+</script>
 {% endblock content %}
