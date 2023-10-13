@@ -177,7 +177,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -203,7 +203,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                        <button type="button" class="btn btn-primary" id="buttonCreate" data-bs-dismiss="modal">Add Product</button>
                     </div>
                 </div>
             </div>
@@ -212,8 +212,7 @@
         {% endfor %}
     </div>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
-    <a href="{% url 'main:create_product' %}" class="btn btn-primary mt-4">Add New Product</a>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="buttonCreate">Add Product by AJAX</button>
 
     <script>
         async function getProducts() {
@@ -234,14 +233,13 @@
     
                 card.innerHTML = `
                     <div class="card product-card">
-                        <img src="${product.image_url}" class="card-img-top" alt="${product.name}">
                         <div class="card-body">
-                            <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text">${product.description}</p>
-                            <p><strong>Price:</strong> ${product.price}</p>
-                            <p><strong>Quantity:</strong> ${product.amount}</p>
-                            <p><strong>Category:</strong> ${product.category}</p>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#productDetails${product.id}">Details</a>
+                            <h5 class="card-title">${product.fields.name}</h5>
+                            <p class="card-text">${product.fields.description}</p>
+                            <p><strong>Price:</strong> ${product.fields.price}</p>
+                            <p><strong>Quantity:</strong> ${product.fields.amount}</p>
+                            <p><strong>Category:</strong> ${product.fields.category}</p>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#productDetails${product.pk}">Details</a>
                         </div>
                     </div>
                 `;
@@ -249,7 +247,22 @@
                 productContainer.appendChild(card);
             });
         }
-    
+        function displayModal() {
+        document.querySelector('#modalCreate').style.display = "block"
+        }
+        
+        document.querySelector('#buttonCreate').onClick = displayModal
+
+        function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+        }
+
         refreshProducts();
     </script>    
     
