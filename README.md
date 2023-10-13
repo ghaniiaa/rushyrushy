@@ -1601,3 +1601,26 @@ __5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara s
 
 _Jawab:_
 
+    1. Pembaruan Kode Card Data: Kode untuk card data perlu diubah agar mendukung teknologi AJAX GET. AJAX (Asynchronous JavaScript and XML) memungkinkan pembaruan konten web tanpa harus memuat ulang halaman. Hal ini dapat meningkatkan kecepatan dan pengalaman pengguna.
+
+    2. Optimalisasi "item-card": Mengoptimalkan "item-card" dengan AJAX adalah langkah penting. Ini berarti ketika pengguna mengklik tombol pada setiap kartu, informasi dapat diperbarui atau ditampilkan tanpa harus memperbarui seluruh halaman. Hal ini memberikan respon yang lebih cepat dan fluid.
+
+    3. Pengambilan Task dengan AJAX GET: Mengambil task sekarang harus menggunakan AJAX GET. Teknologi ini memastikan bahwa saat data diambil, halaman tidak perlu diperbarui sepenuhnya, hanya bagian yang relevan saja.
+
+    4. Akses Database dengan AJAX: Menggunakan AJAX untuk mengakses database memastikan bahwa semua item dapat diambil dengan efisien dan tanpa gangguan pada tampilan halaman yang sedang dilihat oleh pengguna.
+
+    5. Pembuatan Modal untuk Menambah Item: Untuk meningkatkan interaktivitas, sebuah tombol harus dibuat yang, ketika ditekan, akan menampilkan modal dengan form. Modal ini memungkinkan pengguna menambahkan item baru tanpa harus pergi ke halaman lain.
+
+    6. Integrasi AJAX dengan Tombol "Add New Item": Dengan mengintegrasikan AJAX, ketika pengguna menambahkan item baru melalui modal, data akan langsung terintegrasi dengan database tanpa perlu memuat ulang halaman.
+
+    7. Fungsi "add_item_ajax": Membuat metode baru, yaitu "add_item_ajax", adalah langkah penting. Ini memastikan bahwa saat item baru ditambahkan, prosesnya dilakukan di belakang layar tanpa mengganggu tampilan atau fungsi halaman utama.
+
+    8. Penambahan Jalur di urls.py: Agar fungsi "add_item_ajax" dapat diakses, sebuah jalur "/create-ajax/" harus ditambahkan di urls.py. Ini adalah konfigurasi penting agar permintaan dari front-end dapat diteruskan ke fungsi yang sesuai di back-end.
+
+    9. Integrasi Modal dengan "/create-ajax/": Tombol "Create Item" di dalam modal harus terhubung dengan jalur "/create-ajax/". Dengan menambahkan atribut onclick=addItem, aksi dari tombol tersebut akan mengarahkan permintaan ke fungsi back-end yang sesuai.
+
+    10. Refresh Asinkronus: Penting untuk memastikan bahwa halaman utama diperbarui secara asinkronus. Ini berarti setiap kali ada perubahan pada item (seperti penambahan atau pengurangan), tampilan akan diperbarui tanpa memuat ulang halaman secara keseluruhan.
+
+    11. Mengumpulkan Aset Statis: Sebagai bagian dari manajemen aset web, menjalankan perintah untuk mengumpulkan semua aset statis memastikan bahwa semua file (seperti CSS, JavaScript, dan gambar) terorganisir dengan baik.
+
+    12. Konsolidasi File Statis: Dengan mengumpulkan semua file statis ke satu direktori, manajemen dan akses ke file menjadi lebih mudah dan terstruktur, mempercepat waktu pemuatan dan mempermudah pemeliharaan.
