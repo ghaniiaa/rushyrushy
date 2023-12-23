@@ -9,6 +9,7 @@ from main.forms import ProductForm
 from django.urls import reverse
 from .models import Product
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login  
@@ -17,6 +18,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
+from django.views.decorators.http import require_http_methods
+from .models import Product
+import json
+
 
 
 # Create your views here.
@@ -61,6 +68,41 @@ def register(request):
             return redirect('main:login')
     context = {'form':form}
     return render(request, 'register.html', context)
+
+@csrf_exempt
+def register_json(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+    try:
+        # Parse the JSON data
+        data = json.loads(request.body)
+
+        # Extract required data
+        username = data['username']
+        password = data['password']
+
+        # Check if user already exists
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'error': 'Username already exists'}, status=400)
+
+        # Create new user
+        user = User.objects.create_user(username, password)
+        user.save()
+
+        return JsonResponse({'message': 'User registered successfully'}, status=201)
+
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    except KeyError as e:
+        return JsonResponse({'error': f'Missing key: {str(e)}'}, status=400)
+
+    except Exception as e:
+        # Log the exception for debugging
+        print(f'Error in register_json: {e}')
+        return JsonResponse({'error': 'Internal Server Error'}, status=500)
+
 
 def login_user(request):
     if request.method == 'POST':
@@ -180,3 +222,91 @@ def add_product_ajax(request):
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()   
+
+@csrf_exempt
+def create_product_json(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+    try:
+        # Parse the JSON data
+        product_data = json.loads(request.body)
+        
+        # Extract fields from the JSON data
+        fields = product_data.get('fields', {})
+        name = fields.get('name')
+        date_added = fields.get('date_added')
+        amount = fields.get('amount')
+        description = fields.get('description')
+        category = fields.get('category')
+        price = fields.get('price')
+        user_id = fields.get('user')
+        is_last = fields.get('is_last', False)
+
+       # Convert date_added to datetime object
+        date_added = datetime.datetime.strptime(date_added, '%Y-%m-%d').date()
+
+        # Get user model
+        user = get_user_model().objects.get(pk=user_id)
+
+        # Create and save the new product
+        new_product = Product(
+            name=name,
+            date_added=date_added,  # Use correct field name
+            amount=amount,
+            description=description,
+            category=category,
+            price=price,
+            user=user,
+            is_last=is_last  # Use correct field name
+        )
+        new_product.full_clean()  # Validate model instance
+        new_product.save()
+
+        return JsonResponse({'message': 'Product added successfully', 'product_id': new_product.pk}, status=201)
+
+    except json.JSONDecodeError as e:
+        return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    except KeyError as e:
+        return JsonResponse({'error': f'Missing key: {e}'}, status=400)
+
+    except ValidationError as e:
+        return JsonResponse({'error': f'Validation error: {e}'}, status=400)
+
+    except get_user_model().DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
+    except Exception as e:
+        # Log the exception for debugging
+        print(f'Error in create_product_json: {e}')
+        return JsonResponse({'error': 'Internal Server Error'}, status=500)
+
+
+# Mengedit produk
+@require_http_methods(["POST"])
+def edit_product_json(request, id):
+    try:
+        product = Product.objects.get(pk=id)
+        data = json.loads(request.body)
+        product.name = data.get('name', product.name)
+        product.price = data.get('price', product.price)
+        product.description = data.get('description', product.description)
+        # Update field lain jika ada
+        product.save()
+        return JsonResponse({'message': 'Produk berhasil diperbarui'})
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Produk tidak ditemukan'}, status=404)
+    except KeyError:
+        return JsonResponse({'error': 'Data tidak lengkap'}, status=400)
+
+
+# Menghapus produk
+@require_http_methods(["DELETE"])
+def delete_product_json(request, product_id):
+    try:
+        product = Product.objects.get(pk=product_id)
+        product.delete()
+        return JsonResponse({'message': 'Produk berhasil dihapus'}, status=200)
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Produk tidak ditemukan'}, status=404)
